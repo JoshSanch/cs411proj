@@ -17,8 +17,7 @@ function App() {
     <div className="App">
         <Router>
           <NavigationBar/>
-          <p>&nbsp;</p>
-          <p>&nbsp;</p>
+          <br/><br/><br/><br/>
           <Route path="/Home" component={HomeScreen}/>
           <Route path="/Sets" component={SetDataScreen}/>
           <Route path="/Games" component={GameDataScreen}/>
