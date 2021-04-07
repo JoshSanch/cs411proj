@@ -9,7 +9,7 @@ function PlayerDataScreen() {
     <div>
         <p>Hello! </p>
         <p></p>
-        <p>This is the set data screen</p>
+        <p>This is the player data screen</p>
         
     </div>
   );

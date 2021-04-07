@@ -4,15 +4,15 @@ import React, { useState, useEffect, Component } from 'react';
 import { Link, Route, Switch,BrowserRouter as Router } from "react-router-dom";
 import NavigationBar from './Components/NavigationBar'
 
-function PlayerDataScreen() {
+function CharacterDataScreen() {
   return (
     <div>
         <p>Hello! </p>
         <p></p>
-        <p>This is the set data screen</p>
+        <p>This is the character data screen</p>
         
     </div>
   );
 }
 
-export default PlayerDataScreen;
+export default CharacterDataScreen;
