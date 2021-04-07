@@ -1,23 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-
+import React, { useState, useEffect, Component } from 'react';
+import { Link, Route, Switch,BrowserRouter as Router } from "react-router-dom";
+import NavigationBar from './Components/NavigationBar';
+import SetDataScreen from './SetDataScreen'
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Router>
+        <NavigationBar/>
+        <Route exact path="../Smash Set Data" component={SetDataScreen} />
+        </Router>
     </div>
   );
 }
