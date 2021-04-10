@@ -2,6 +2,7 @@ from flask import Flask
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 from sqlalchemy import inspect
+import time
 
 app = Flask(__name__)
 
@@ -37,6 +38,7 @@ def exec_advanced_query(query_name):
 
     query_str = query_to_prep[query_name]
     result = db.engine.execute(query_str)
+    return result
 
     
 
