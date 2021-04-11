@@ -45,3 +45,9 @@ def exec_advanced_query(query_name):
     result = db.engine.execute(query_str)
     return jsonify({'result': [dict(row) for row in result]})
         
+@app.route('/<table_slug>/<operation>')
+def crud_handler(table_slug, operation): 
+    return make_response(
+        "I'm slugging!",
+        200
+    )
