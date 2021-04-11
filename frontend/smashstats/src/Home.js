@@ -8,8 +8,8 @@ function HomeScreen() {
   const [topTemp, setTopTemp] = useState('topplayers');
   //Time Temporary Function
   useEffect(() => {
-    fetch('/advanced/topplayers').then(res => res.json()).then(data => {
-      setTopTemp(data);
+    fetch('/toplayers').then(res => res.json()).then(data => {
+      setTopTemp(data.result);
     });
   }, []);
 
@@ -18,7 +18,7 @@ function HomeScreen() {
         <p>Hello! </p>
         <p></p>
         <p>This is the home screen</p>
-        <p>The current time is {topTemp}.</p>
+        <p>QUERY: {topTemp}.</p>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 from flask import Flask, make_response, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 import time
 import config
 
@@ -16,6 +17,31 @@ def hello_world():
         'Hi there',
         200,
     )
+
+
+@app.route('/toplayers')
+def check_val():
+    qprep = {"topplayers": 'SELECT player_id, games_won + games_lost as total_games, games_won /                    (games_won + games_lost) as win_rate\
+                        FROM ( SELECT player_id, count(game_id) as games_won\
+                        FROM Players JOIN Games ON Players.player_id = Games.winner_id\
+                        GROUP BY player_id ORDER BY games_won DESC ) AS t1\
+                        NATURAL JOIN\
+                        (\
+                        SELECT player_id , count(game_id) as games_lost\
+                        FROM Players JOIN Games ON Players.player_id = Games.loser_id\
+                        GROUP BY player_id\
+                        ORDER BY games_lost DESC\
+                        ) as t2\
+                        WHERE games_won + games_lost > 50\
+                        ORDER BY win_rate DESC\
+                        LIMIT 50;'}
+    query_str = qprep["topplayers"]
+    if (0):
+        return jsonify({'result': query_str})
+    result = db.engine.execute(query_str)
+    return jsonify({'result': [dict(row) for row in result]})
+    
+
 
 @app.route('/advanced/<query_name>')
 def exec_advanced_query(query_name):
@@ -43,4 +69,3 @@ def exec_advanced_query(query_name):
     result = db.engine.execute(query_str)
     return jsonify({'result': [dict(row) for row in result]})
         
-       
