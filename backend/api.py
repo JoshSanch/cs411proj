@@ -43,7 +43,7 @@ def check_val():
     
 
 
-@app.route('/advanced/<query_name>')
+@app.route('/advanced/<query_name>', methods=["GET"])
 def exec_advanced_query(query_name):
     query_to_prep = {
         "topplayers": 'SELECT player_id, games_won + games_lost as total_games, games_won / (games_won + games_lost) as win_rate\
