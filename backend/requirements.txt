@@ -3,4 +3,5 @@ flask_sqlalchemy
 pymysql
 pyyaml
 python-dotenv
-mysqlclient 
+mysqlclient
+simplejson
