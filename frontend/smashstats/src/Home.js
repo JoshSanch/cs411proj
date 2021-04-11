@@ -80,13 +80,31 @@ function HomeScreen() {
   ]
   
   function queryButton1() {
-    var x = document.getElementById("topPlayerDIV");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-    return;
+    document.getElementById("topPlayerDIV").style.display = "block";
+    document.getElementById("stageDIV").style.display = "none";
+    document.getElementById("charDIV").style.display = "none";
+    document.getElementById("charStageDIV").style.display = "none";
+  }
+
+  function queryButton2() {
+    document.getElementById("topPlayerDIV").style.display = "none";
+    document.getElementById("stageDIV").style.display = "block";
+    document.getElementById("charDIV").style.display = "none";
+    document.getElementById("charStageDIV").style.display = "none";
+  }
+
+  function queryButton3() {
+    document.getElementById("topPlayerDIV").style.display = "none";
+    document.getElementById("stageDIV").style.display = "none";
+    document.getElementById("charDIV").style.display = "block";
+    document.getElementById("charStageDIV").style.display = "none";
+  }
+
+  function queryButton4() {
+    document.getElementById("topPlayerDIV").style.display = "none";
+    document.getElementById("stageDIV").style.display = "none";
+    document.getElementById("charDIV").style.display = "none";
+    document.getElementById("charStageDIV").style.display = "block";
   }
 
   return (
@@ -96,7 +114,10 @@ function HomeScreen() {
         <p>This is the home screen</p>
         {/* <div><pre>{JSON.stringify(topTemp, null, 2) }</pre></div> */}
         <div id="queryButtons">
-          <button onclick={queryButton1} id="query1">This button is useless for now</button>
+          <button onClick={queryButton1} id="query1">This button shows the first query</button>
+          <button onClick={queryButton2} id="query1">This button shows the second query</button>
+          <button onClick={queryButton3} id="query1">This button shows the third query</button>
+          <button onClick={queryButton4} id="query1">This button shows the fourth query</button>
         </div>
         <div id="topPlayerDIV">
           <p>Data on top players, the number of games played, and win rate:</p>
