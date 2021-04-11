@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
-import React, { useState, useEffect, Component } from 'react';
-import { Link, Route, Switch,BrowserRouter as Router, BrowserRouter } from "react-router-dom";
+import React from 'react';
+import { Route, BrowserRouter as Router, } from "react-router-dom";
 import NavigationBar from './Components/NavigationBar';
 import SetDataScreen from './SetDataScreen'
 import HomeScreen from './Home'
