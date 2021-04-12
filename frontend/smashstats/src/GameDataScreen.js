@@ -32,31 +32,31 @@ class GameDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
-    if (this.state.game_id == "") {
+    if (this.state.game_id === "") {
       this.setState({game_id: null});
     }
-    if (this.state.winner_id == "") {
+    if (this.state.winner_id === "") {
       this.setState({winner_id: null});
     }
-    if (this.state.loser_id == "") {
+    if (this.state.loser_id === "") {
       this.setState({loser_id: null});
     }
-    if (this.state.winner_score == "") {
+    if (this.state.winner_score === "") {
       this.setState({winner_score: null});
     }
-    if (this.state.loser_score == "") {
+    if (this.state.loser_score === "") {
       this.setState({loser_score: null});
     }
-    if (this.state.winner_char_id == "") {
+    if (this.state.winner_char_id === "") {
       this.setState({winner_char_id: null});
     }
-    if (this.state.loser_char_id == "") {
+    if (this.state.loser_char_id === "") {
       this.setState({loser_char_id: null});
     }
-    if (this.state.stage_id == "") {
+    if (this.state.stage_id === "") {
       this.setState({stage_id: null});
     }
-    if (this.state.set_id == "") {
+    if (this.state.set_id === "") {
       this.setState({set_id: null});
     }
     document.getElementById("p1").innerHTML = "game_id entered: " + this.state.game_id;
@@ -125,31 +125,31 @@ class GameDataScreen extends React.Component {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
 
-    if (this.state.game_id == "") {
+    if (this.state.game_id === "") {
       this.setState({game_id: null});
     }
-    if (this.state.winner_id == "") {
+    if (this.state.winner_id === "") {
       this.setState({winner_id: null});
     }
-    if (this.state.loser_id == "") {
+    if (this.state.loser_id === "") {
       this.setState({loser_id: null});
     }
-    if (this.state.winner_score == "") {
+    if (this.state.winner_score === "") {
       this.setState({winner_score: null});
     }
-    if (this.state.loser_score == "") {
+    if (this.state.loser_score === "") {
       this.setState({loser_score: null});
     }
-    if (this.state.winner_char_id == "") {
+    if (this.state.winner_char_id === "") {
       this.setState({winner_char_id: null});
     }
-    if (this.state.loser_char_id == "") {
+    if (this.state.loser_char_id === "") {
       this.setState({loser_char_id: null});
     }
-    if (this.state.stage_id == "") {
+    if (this.state.stage_id === "") {
       this.setState({stage_id: null});
     }
-    if (this.state.set_id == "") {
+    if (this.state.set_id === "") {
       this.setState({set_id: null});
     }
 

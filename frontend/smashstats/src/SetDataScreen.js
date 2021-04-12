@@ -27,13 +27,13 @@ class PlayerDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
-    if (this.state.set_id == "") {
+    if (this.state.set_id === "") {
       this.setState({set_id: null});
     }
-    if (this.state.winner_id == "") {
+    if (this.state.winner_id === "") {
       this.setState({winner_id: null});
     }
-    if (this.state.loser_id == "") {
+    if (this.state.loser_id === "") {
       this.setState({loser_id: null});
     }
     document.getElementById("p1").innerHTML = "set_id entered: " + this.state.set_id;
@@ -59,13 +59,13 @@ class PlayerDataScreen extends React.Component {
   searchChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
-    if (this.state.set_id == "") {
+    if (this.state.set_id === "") {
       this.setState({set_id: null});
     }
-    if (this.state.winner_id == "") {
+    if (this.state.winner_id === "") {
       this.setState({winner_id: null});
     }
-    if (this.state.loser_id == "") {
+    if (this.state.loser_id === "") {
       this.setState({loser_id: null});
     }
 

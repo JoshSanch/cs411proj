@@ -23,10 +23,10 @@ class CharacterDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
-    if (this.state.char_id == "") {
+    if (this.state.char_id === "") {
       this.setState({char_id: null});
     }
-    if (this.state.char_name == "") {
+    if (this.state.char_name === "") {
       this.setState({char_name: null});
     }
     document.getElementById("p1").innerHTML = "char_id entered: " + this.state.char_id;
@@ -51,10 +51,10 @@ class CharacterDataScreen extends React.Component {
   searchChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
-    if (this.state.char_id == "") {
+    if (this.state.char_id === "") {
       this.setState({char_id: null});
     }
-    if (this.state.char_name == "") {
+    if (this.state.char_name === "") {
       this.setState({char_name: null});
     }
 

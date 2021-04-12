@@ -1,10 +1,8 @@
 import React from 'react';
-import { Navbar, Nav, Form, Button} from 'react-bootstrap';
+import { Navbar, Nav} from 'react-bootstrap';
 import { NavLink } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css';
-import { Link, Route, Switch,BrowserRouter as Router } from "react-router-dom";
-import SetDataScreen from '../SetDataScreen.js';
-import App from '../App';
+import { BrowserRouter as Router } from "react-router-dom";
 class NavigationBar extends React.Component {
     state = { clicked: false }
     render() {

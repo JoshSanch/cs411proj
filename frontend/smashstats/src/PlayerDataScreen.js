@@ -23,10 +23,10 @@ class PlayerDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
-    if (this.state.player_id == "") {
+    if (this.state.player_id === "") {
       this.setState({player_id: null});
     }
-    if (this.state.player_name == "") {
+    if (this.state.player_name === "") {
       this.setState({player_name: null});
     }
     document.getElementById("p1").innerHTML = "player_id entered: " + this.state.player_id;
@@ -51,10 +51,10 @@ class PlayerDataScreen extends React.Component {
   searchChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
-    if (this.state.player_id == "") {
+    if (this.state.player_id === "") {
       this.setState({player_id: null});
     }
-    if (this.state.player_name == "") {
+    if (this.state.player_name === "") {
       this.setState({player_name: null});
     }
 

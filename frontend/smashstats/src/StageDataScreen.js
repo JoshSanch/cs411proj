@@ -16,10 +16,10 @@ class StageDataScreen extends React.Component {
   useEffect() {
     // Simple POST request with a JSON body using fetch. NEEDS TO BE WORKED ON
 
-    if (this.state.stage_id == "") {
+    if (this.state.stage_id === "") {
       this.setState({stage_id: null});
     }
-    if (this.state.stage_name == "") {
+    if (this.state.stage_name === "") {
       this.setState({stage_name: null});
     }
 
@@ -52,10 +52,10 @@ class StageDataScreen extends React.Component {
     e.preventDefault();
     document.getElementById("p1").innerHTML = "stage_id entered: " + this.state.stage_id;
     document.getElementById("p2").innerHTML = "stage_name entered: " + this.state.stage_name;
-    if (this.state.stage_id == "") {
+    if (this.state.stage_id === "") {
       this.setState({stage_id: null});
     }
-    if (this.state.stage_name == "") {
+    if (this.state.stage_name === "") {
       this.setState({stage_name: null});
     }
   }
@@ -78,10 +78,10 @@ class StageDataScreen extends React.Component {
   searchChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
-    if (this.state.stage_id == "") {
+    if (this.state.stage_id === "") {
       this.setState({stage_id: null});
     }
-    if (this.state.stage_name == "") {
+    if (this.state.stage_name === "") {
       this.setState({stage_name: null});
     }
 
