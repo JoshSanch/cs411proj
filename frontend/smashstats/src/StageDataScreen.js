@@ -63,7 +63,7 @@ class StageDataScreen extends React.Component {
         </div>
         <div id="getRowDIV">
           <form>
-            <p>Enter a stage ID to delete it:</p>
+            <p>Set the Stage ID and name below:</p>
             <input
               type="text"
               value={this.state.stage_id}
