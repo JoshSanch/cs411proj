@@ -80,13 +80,31 @@ function HomeScreen() {
   ]
   
   function queryButton1() {
-    var x = document.getElementById("topPlayerDIV");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-    return;
+    document.getElementById("topPlayerDIV").style.display = "block";
+    document.getElementById("stageDIV").style.display = "none";
+    document.getElementById("charDIV").style.display = "none";
+    document.getElementById("charStageDIV").style.display = "none";
+  }
+
+  function queryButton2() {
+    document.getElementById("topPlayerDIV").style.display = "none";
+    document.getElementById("stageDIV").style.display = "block";
+    document.getElementById("charDIV").style.display = "none";
+    document.getElementById("charStageDIV").style.display = "none";
+  }
+
+  function queryButton3() {
+    document.getElementById("topPlayerDIV").style.display = "none";
+    document.getElementById("stageDIV").style.display = "none";
+    document.getElementById("charDIV").style.display = "block";
+    document.getElementById("charStageDIV").style.display = "none";
+  }
+
+  function queryButton4() {
+    document.getElementById("topPlayerDIV").style.display = "none";
+    document.getElementById("stageDIV").style.display = "none";
+    document.getElementById("charDIV").style.display = "none";
+    document.getElementById("charStageDIV").style.display = "block";
   }
 
   return (
@@ -96,21 +114,24 @@ function HomeScreen() {
         <p>This is the home screen</p>
         {/* <div><pre>{JSON.stringify(topTemp, null, 2) }</pre></div> */}
         <div id="queryButtons">
-          <button onclick={queryButton1} id="query1">This button is useless for now</button>
+          <button onClick={queryButton1} id="query1">This button shows the first query</button>
+          <button onClick={queryButton2} id="query1">This button shows the second query</button>
+          <button onClick={queryButton3} id="query1">This button shows the third query</button>
+          <button onClick={queryButton4} id="query1">This button shows the fourth query</button>
         </div>
-        <div id="topPlayerDIV">
+        <div id="topPlayerDIV" style={{display: "none"}}>
           <p>Data on top players, the number of games played, and win rate:</p>
           <BootstrapTable keyField='id1' data={topPlayerData} columns={ topPlayerCols } pagination={ paginationFactory() }/>
         </div>
-        <div id="stageDIV">
+        <div id="stageDIV" style={{display: "none"}}>
           <p>Data on stages and the number of games played on each stage</p>
           <BootstrapTable keyField='id2' data={stageData} columns={ stageCols } pagination={ paginationFactory() }/>
         </div>
-        <div id="charDIV">
+        <div id="charDIV" style={{display: "none"}}>
           <p>Data on characters, number of games where the character is played, and their win rates</p>
           <BootstrapTable keyField='id2' data={charData} columns={ charCols } pagination={ paginationFactory() }/>
         </div>
-        <div id="charStageDIV">
+        <div id="charStageDIV" style={{display: "none"}}>
           <p>Data on characters, stages, and the number of games each character has won on each stage</p>
           <BootstrapTable keyField='id3' data={charStageData} columns={ charStageCols} pagination={ paginationFactory() }/>
         </div>
