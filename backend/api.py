@@ -63,28 +63,78 @@ def crud_handler(table_slug, operation):
             except:
                 return make_response(jsonify(message='Error inserting player'), 500)
 
+        if table_slug == 'stages':
+            try:
+                stage = Stages(stage_id=request.form.get('stage_id'), stage_name=request.form.get('stage_name'))
+                db.session.add(stage)
+                db.session.commit()
+                return make_response(jsonify(message="Stage successfully created."), 200)
+            except:
+                return make_response(jsonify(message='Error inserting stage'), 500)
+
+        if table_slug == 'games':
+            try:
+                game = Games(
+                    game_id=request.form.get('game_id'), 
+                    winner_id=request.form.get('winner_id'), 
+                    loser_id=request.form.get('loser_id'), 
+                    winner_score=request.form.get('winner_score'),
+                    loser_score=request.form.get('loser_score'), 
+                    winner_char_id=request.form.get('winner_char_id'), 
+                    loser_char_id=request.form.get('loser_char_id'), 
+                    stage_id=request.form.get('stage_id'),
+                    set_id=request.form.get('set_id')
+                    )
+                db.session.add(game)
+                db.session.commit()
+                return make_response(jsonify(message="Game successfully created."), 200)
+            except:
+                return make_response(jsonify(message='Error inserting game'), 500)
+
+
+        if table_slug == 'sets':
+            try:
+                sets = Sets(set_id=request.form.get('set_id'), set_winner_id=request.form.get('set_winner_id'), set_loser_id=request.form.get('set_loser_id'))
+                db.session.add(sets)
+                db.session.commit()
+                return make_response(jsonify(message="Set successfully created."), 200)
+            except:
+                return make_response(jsonify(message='Error inserting set'), 500)
+
+
+        if table_slug == 'characters':
+            try:
+                character = Characters(char_id=request.form.get('char_id'), char_name=request.form.get('char_name'))
+                db.session.add(character)
+                db.session.commit()
+                return make_response(jsonify(message="Character successfully created."), 200)
+            except:
+                return make_response(jsonify(message='Error inserting character'), 500)
+        
+        return make_response(jsonify(message='Invalid Table'), 500)
+
 
     elif operation == 'search':
         query_data = json.loads(request.data)
         query_data = {k: v for k, v in query_data.items() if v is not None}
 
-        if table_slug == 'players':
-            try:
-                result = Players.query.filter_by(**query_data).all()
-                result = [i.to_dict() for i in result]
-                return make_response(jsonify(result), 200)
-            except Exception as ex:
-                print(repr(ex))
-                return make_response(jsonify(message='Error searching stage'), 500)
+        class_map = {
+            "players": Players,
+            "stages": Stages,
+            "characters": Characters,
+            "sets": Sets,
+            "games": Games
+        }
 
-        if table_slug == 'stages':
-            try:
-                result = Stages.query.filter_by(**query_data).all()
-                result = [i.to_dict() for i in result]
-                return make_response(jsonify(result), 200)
-            except Exception as ex:
-                print(repr(ex))
-                return make_response(jsonify(message='Error searching stage'), 500)
+        try:
+            query_data = [getattr(class_map[table_slug], k).ilike(f"%{v}%") for k, v in query_data.items()]
+            result = Stages.query.filter(*query_data).all()
+            result = [i.to_dict() for i in result]
+            return make_response(jsonify(result), 200)
+        except Exception as ex:
+            print(repr(ex))
+            return make_response(jsonify(message=f'Error searching on {table_slug}'), 500)
+
 
     elif operation == 'update':
         if table_slug == 'players':
