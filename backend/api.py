@@ -4,6 +4,7 @@ from sqlalchemy import text
 import time
 import config
 
+#Import models? idk
 app = Flask(__name__)
 app.config.from_object("config.Config")
 
@@ -45,8 +46,30 @@ def exec_advanced_query(query_name):
     result = db.engine.execute(query_str)
     return jsonify({'result': [dict(row) for row in result]})
         
-@app.route('/<table_slug>/<operation>')
+@app.route('/<table_slug>/<operation>', methods=['GET','POST'])
 def crud_handler(table_slug, operation): 
+    #table_slug is for table, operation for CRUD
+
+    if operation = 'create':
+        if table_slug = 'players':
+            try:
+                player = Player(player_id=request.form.get('player_id'), player_name=request.form.get('player_name'))
+                db.session.add(player)
+                db.session.commit()
+                return make_response('Successfully inserted player', 50)
+            except:
+                return make_response('Error inserting player', 50)
+
+
+    elif operation = 'search':
+
+    elif operation = 'insert':
+
+    elif operation = 'delete':
+
+
+
+
     return make_response(
         "I'm slugging!",
         200

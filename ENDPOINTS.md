@@ -10,29 +10,29 @@
 
 - `/games/create`
 - `/games/search`
-- `/games/insert`
+- `/games/update`
 - `/games/delete`
 
 
 - `/sets/create`
 - `/sets/search`
-- `/sets/insert`
+- `/sets/update`
 - `/sets/delete`
 
 
 - `/players/create`
 - `/players/search`
-- `/players/insert`
+- `/players/update`
 - `/players/delete`
 
 
 - `/stages/create`
 - `/stages/search`
-- `/stages/insert`
+- `/stages/update`
 - `/stages/delete`
 
 
 - `/characters/create`
 - `/characters/search`
-- `/characters/insert`
+- `/characters/update`
 - `/characters/delete`
