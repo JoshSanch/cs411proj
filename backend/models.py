@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 class Players(db.Model):
     __tablename__ = "Players"
 
-    player_id = db.Column(db.String(30), unique=True, primary_key=True)
+    player_id = db.Column(db.String(30), primary_key=True)
     player_name = db.Column(db.String(30))
     
     def __repr__(self):
@@ -34,7 +34,7 @@ class Players(db.Model):
 class Stages(db.Model):
     __tablename__ = "Stages"
 
-    stage_id = db.Column(db.Integer, unique=True, primary_key=True)
+    stage_id = db.Column(db.Integer, primary_key=True)
     stage_name = db.Column(db.String(30))
 
     def to_dict(self):
@@ -47,7 +47,7 @@ class Stages(db.Model):
 class Games(db.Model):
     __tablename__ = "Games"
 
-    game_id = db.Column(db.Integer, unique=True, primary_key=True)
+    game_id = db.Column(db.Integer, primary_key=True)
     winner_id = db.Column(db.String(30))
     loser_id = db.Column(db.String(30))
     winner_score = db.Column(db.Integer)
@@ -74,7 +74,7 @@ class Games(db.Model):
 class Characters(db.Model):
     __tablename__ = "Characters"
 
-    char_id = db.Column(db.Integer, unique=True, primary_key=True)
+    char_id = db.Column(db.Integer, primary_key=True)
     char_name = db.Column(db.String(30))
 
     def to_dict(self):
@@ -87,7 +87,7 @@ class Characters(db.Model):
 class Sets(db.Model):
     __tablename__ = "Sets"
 
-    set_id = db.Column(db.String(30), unique=True, primary_key=True)
+    set_id = db.Column(db.String(30), primary_key=True)
     set_winner_id = db.Column(db.String(30))
     set_loser_id = db.Column(db.String(30))
 
