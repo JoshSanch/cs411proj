@@ -10,18 +10,34 @@ class StageDataScreen extends React.Component {
     this.deleteChangeHandler = this.deleteChangeHandler.bind(this);
     this.handleStageIDChange = this.handleStageIDChange.bind(this);
     this.handleStageNameChange = this.handleStageNameChange.bind(this);
+    this.searchChangeHandler = this.searchChangeHandler.bind(this);
   }
 
   useEffect() {
     // Simple POST request with a JSON body using fetch. NEEDS TO BE WORKED ON
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: 'React POST Request Example' })
-    };
-    fetch('/stages/create', requestOptions)
-        .then(response => response.json())
-        .then(data => this.setState({ postId: data.id }));
+
+    if (this.state.stage_id == "") {
+      this.setState({stage_id: null});
+    }
+    if (this.state.stage_name == "") {
+      this.setState({stage_name: null});
+    }
+
+    console.log(this.state);
+
+    // const requestOptions = {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ 
+    //       stage_id: this.state.stage_id,
+    //       stage_name: this.state.stage_name
+    //     })
+    // };
+    
+
+    // fetch('/stages/create', requestOptions)
+    //     .then(response => response.json())
+    //     .then(data => this.setState({ postId: data.id }));
   }
 
   handleStageIDChange(e) {
@@ -36,6 +52,12 @@ class StageDataScreen extends React.Component {
     e.preventDefault();
     document.getElementById("p1").innerHTML = "stage_id entered: " + this.state.stage_id;
     document.getElementById("p2").innerHTML = "stage_name entered: " + this.state.stage_name;
+    if (this.state.stage_id == "") {
+      this.setState({stage_id: null});
+    }
+    if (this.state.stage_name == "") {
+      this.setState({stage_name: null});
+    }
   }
 
   updateChangeHandler(e) {
@@ -51,6 +73,30 @@ class StageDataScreen extends React.Component {
   deleteChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p8").innerHTML = "Delete pressed!";
+  }
+
+  searchChangeHandler(e) {
+    e.preventDefault();
+    document.getElementById("p10").innerHTML = "Search pressed!";
+    if (this.state.stage_id == "") {
+      this.setState({stage_id: null});
+    }
+    if (this.state.stage_name == "") {
+      this.setState({stage_name: null});
+    }
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          stage_id: this.state.stage_id,
+          stage_name: this.state.stage_name
+        })
+    };
+    
+    fetch('/stages/create', requestOptions);
   }
 
   render () { 
@@ -93,6 +139,11 @@ class StageDataScreen extends React.Component {
           <p id="p7">Press this button to delete the corresponding stage ID from the database:</p>
           <button onClick={this.deleteChangeHandler}>Add</button>
           <p id="p8"></p>
+        </div>
+        <div id="searchDIV">
+          <p id="p9">Press this button search for data:</p>
+          <button onClick={this.searchChangeHandler}>Search</button>
+          <p id="p10"></p>
         </div>
     </div>
     );
