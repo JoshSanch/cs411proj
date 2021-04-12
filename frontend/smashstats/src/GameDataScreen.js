@@ -190,46 +190,55 @@ class GameDataScreen extends React.Component {
               type="text"
               value={this.state.game_id}
               onChange={this.handleGameIDChange}
+              placeholder="game_id"
             />
             <input 
               type="text"
               value={this.state.winner_id}
               onChange={this.handleWinnerIDChange}
+              placeholder="winner_id"
             />
             <input 
               type="text"
               value={this.state.loser_id}
               onChange={this.handleLoserIDChange}
+              placeholder="loser_id"
             />
             <input 
               type="text"
               value={this.state.winner_score}
               onChange={this.handleWinnerScoreChange}
+              placeholder="winner_score"
             />
             <input 
               type="text"
               value={this.state.loser_score}
               onChange={this.handleLoserScoreChange}
+              placeholder="loser_score"
             />
             <input 
               type="text"
               value={this.state.winner_char_id}
               onChange={this.handleWinnerCharIDChange}
+              placeholder="winner_char_id"
             />
             <input 
               type="text"
               value={this.state.loser_char_id}
               onChange={this.handleLoserCharIDChange}
+              placeholder="loser_char_id"
             />
             <input 
               type="text"
               value={this.state.stage_id}
               onChange={this.handleStageIDChange}
+              placeholder="stage_id"
             />
             <input 
               type="text"
               value={this.state.set_id}
               onChange={this.handleSetIDChange}
+              placeholder="set_id"
             />
             <button type="submit" onClick={this.stateButtonHandler}>Press here</button>
           </form>

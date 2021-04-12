@@ -99,16 +99,19 @@ class PlayerDataScreen extends React.Component {
               type="text"
               value={this.state.set_id}
               onChange={this.handleSetIDChange}
+              placeholder="set_id"
             />
             <input 
               type="text"
               value={this.state.winner_id}
               onChange={this.handleWinnerIDChange}
+              placeholder="winner_id"
             />
             <input 
               type="text"
               value={this.state.loser_id}
               onChange={this.handleLoserIDChange}
+              placeholder="loser_id"
             />
             <button type="submit" onClick={this.stateButtonHandler}>Press here</button>
           </form>
