@@ -11,17 +11,13 @@ class StageDataScreen extends React.Component {
     this.handleStageIDChange = this.handleStageIDChange.bind(this);
     this.handleStageNameChange = this.handleStageNameChange.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
   useEffect() {
     // Simple POST request with a JSON body using fetch. NEEDS TO BE WORKED ON
 
-    if (this.state.stage_id === "") {
-      this.setState({stage_id: null});
-    }
-    if (this.state.stage_name === "") {
-      this.setState({stage_name: null});
-    }
+    this.setEmptyToNull()
 
     console.log(this.state);
 
@@ -40,6 +36,15 @@ class StageDataScreen extends React.Component {
     //     .then(data => this.setState({ postId: data.id }));
   }
 
+  setEmptyToNull() {
+    if (this.state.stage_id === "") {
+      this.setState({stage_id: null});
+    }
+    if (this.state.stage_name === "") {
+      this.setState({stage_name: null});
+    }
+  }
+
   handleStageIDChange(e) {
     this.setState({stage_id: e.target.value})
   }
@@ -50,14 +55,9 @@ class StageDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
+    this.setEmptyToNull()
     document.getElementById("p1").innerHTML = "stage_id entered: " + this.state.stage_id;
     document.getElementById("p2").innerHTML = "stage_name entered: " + this.state.stage_name;
-    if (this.state.stage_id === "") {
-      this.setState({stage_id: null});
-    }
-    if (this.state.stage_name === "") {
-      this.setState({stage_name: null});
-    }
   }
 
   updateChangeHandler(e) {
@@ -78,12 +78,7 @@ class StageDataScreen extends React.Component {
   searchChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
-    if (this.state.stage_id === "") {
-      this.setState({stage_id: null});
-    }
-    if (this.state.stage_name === "") {
-      this.setState({stage_name: null});
-    }
+    this.setEmptyToNull()
 
     console.log(this.state);
 

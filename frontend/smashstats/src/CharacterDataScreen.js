@@ -11,6 +11,7 @@ class CharacterDataScreen extends React.Component {
     this.handleCharIDChange = this.handleCharIDChange.bind(this);
     this.handleCharNameChange = this.handleCharNameChange.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
   handleCharIDChange(e) {
@@ -23,14 +24,18 @@ class CharacterDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
+    this.setEmptyToNull()
+    document.getElementById("p1").innerHTML = "char_id entered: " + this.state.char_id;
+    document.getElementById("p2").innerHTML = "char_name entered: " + this.state.char_name;
+  }
+
+  setEmptyToNull() {
     if (this.state.char_id === "") {
       this.setState({char_id: null});
     }
     if (this.state.char_name === "") {
       this.setState({char_name: null});
     }
-    document.getElementById("p1").innerHTML = "char_id entered: " + this.state.char_id;
-    document.getElementById("p2").innerHTML = "char_name entered: " + this.state.char_name;
   }
 
   updateChangeHandler(e) {
@@ -51,12 +56,7 @@ class CharacterDataScreen extends React.Component {
   searchChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
-    if (this.state.char_id === "") {
-      this.setState({char_id: null});
-    }
-    if (this.state.char_name === "") {
-      this.setState({char_name: null});
-    }
+    this.setEmptyToNull()
 
     console.log(this.state);
 

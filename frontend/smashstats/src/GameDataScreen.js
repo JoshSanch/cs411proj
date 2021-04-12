@@ -17,7 +17,6 @@ class GameDataScreen extends React.Component {
       set_id: ""
     };
     this.stateButtonHandler = this.stateButtonHandler.bind(this);
-    
     this.handleGameIDChange = this.handleGameIDChange.bind(this);
     this.handleWinnerIDChange = this.handleWinnerIDChange.bind(this);
     this.handleLoserIDChange = this.handleLoserIDChange.bind(this);
@@ -28,10 +27,24 @@ class GameDataScreen extends React.Component {
     this.handleStageIDChange = this.handleStageIDChange.bind(this);
     this.handleSetIDChange = this.handleSetIDChange.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
   stateButtonHandler(e) {
     e.preventDefault();
+    this.setEmptyToNull();
+    document.getElementById("p1").innerHTML = "game_id entered: " + this.state.game_id;
+    document.getElementById("p2").innerHTML = "winner_id entered: " + this.state.winner_id;
+    document.getElementById("pp1").innerHTML = "loser_id entered: " + this.state.loser_id;
+    document.getElementById("pp2").innerHTML = "winner_score entered: " + this.state.winner_score;
+    document.getElementById("pp3").innerHTML = "loser_score entered: " + this.state.loser_score;
+    document.getElementById("pp4").innerHTML = "winner_char_id entered: " + this.state.winner_char_id;
+    document.getElementById("pp5").innerHTML = "loser_char_id entered: " + this.state.loser_char_id;
+    document.getElementById("pp6").innerHTML = "stage_id entered: " + this.state.stage_id;
+    document.getElementById("pp7").innerHTML = "set_id entered: " + this.state.set_id;
+  }
+
+  setEmptyToNull() {
     if (this.state.game_id === "") {
       this.setState({game_id: null});
     }
@@ -59,15 +72,6 @@ class GameDataScreen extends React.Component {
     if (this.state.set_id === "") {
       this.setState({set_id: null});
     }
-    document.getElementById("p1").innerHTML = "game_id entered: " + this.state.game_id;
-    document.getElementById("p2").innerHTML = "winner_id entered: " + this.state.winner_id;
-    document.getElementById("pp1").innerHTML = "loser_id entered: " + this.state.loser_id;
-    document.getElementById("pp2").innerHTML = "winner_score entered: " + this.state.winner_score;
-    document.getElementById("pp3").innerHTML = "loser_score entered: " + this.state.loser_score;
-    document.getElementById("pp4").innerHTML = "winner_char_id entered: " + this.state.winner_char_id;
-    document.getElementById("pp5").innerHTML = "loser_char_id entered: " + this.state.loser_char_id;
-    document.getElementById("pp6").innerHTML = "stage_id entered: " + this.state.stage_id;
-    document.getElementById("pp7").innerHTML = "set_id entered: " + this.state.set_id;
   }
 
   handleGameIDChange(e) {
@@ -125,33 +129,7 @@ class GameDataScreen extends React.Component {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
 
-    if (this.state.game_id === "") {
-      this.setState({game_id: null});
-    }
-    if (this.state.winner_id === "") {
-      this.setState({winner_id: null});
-    }
-    if (this.state.loser_id === "") {
-      this.setState({loser_id: null});
-    }
-    if (this.state.winner_score === "") {
-      this.setState({winner_score: null});
-    }
-    if (this.state.loser_score === "") {
-      this.setState({loser_score: null});
-    }
-    if (this.state.winner_char_id === "") {
-      this.setState({winner_char_id: null});
-    }
-    if (this.state.loser_char_id === "") {
-      this.setState({loser_char_id: null});
-    }
-    if (this.state.stage_id === "") {
-      this.setState({stage_id: null});
-    }
-    if (this.state.set_id === "") {
-      this.setState({set_id: null});
-    }
+    this.setEmptyToNull()
 
     console.log(this.state);
 

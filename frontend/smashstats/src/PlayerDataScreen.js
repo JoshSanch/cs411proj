@@ -11,6 +11,7 @@ class PlayerDataScreen extends React.Component {
     this.handlePlayerIDChange = this.handlePlayerIDChange.bind(this);
     this.handlePlayerNameChange = this.handlePlayerNameChange.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
   handlePlayerIDChange(e) {
@@ -23,14 +24,18 @@ class PlayerDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
+    this.setEmptyToNull()
+    document.getElementById("p1").innerHTML = "player_id entered: " + this.state.player_id;
+    document.getElementById("p2").innerHTML = "player_name entered: " + this.state.player_name;
+  }
+
+  setEmptyToNull() {
     if (this.state.player_id === "") {
       this.setState({player_id: null});
     }
     if (this.state.player_name === "") {
       this.setState({player_name: null});
     }
-    document.getElementById("p1").innerHTML = "player_id entered: " + this.state.player_id;
-    document.getElementById("p2").innerHTML = "player_name entered: " + this.state.player_name;
   }
 
   updateChangeHandler(e) {
@@ -51,12 +56,7 @@ class PlayerDataScreen extends React.Component {
   searchChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
-    if (this.state.player_id === "") {
-      this.setState({player_id: null});
-    }
-    if (this.state.player_name === "") {
-      this.setState({player_name: null});
-    }
+    this.setEmptyToNull()
 
     console.log(this.state);
 

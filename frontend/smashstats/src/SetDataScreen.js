@@ -11,6 +11,7 @@ class PlayerDataScreen extends React.Component {
     this.handleWinnerIDChange = this.handleWinnerIDChange.bind(this);
     this.handleLoserIDChange = this.handleLoserIDChange.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
   handleSetIDChange(e) {
@@ -25,8 +26,7 @@ class PlayerDataScreen extends React.Component {
     this.setState({loser_id: e.target.value});
   }
 
-  stateButtonHandler(e) {
-    e.preventDefault();
+  setEmptyToNull() {
     if (this.state.set_id === "") {
       this.setState({set_id: null});
     }
@@ -36,6 +36,11 @@ class PlayerDataScreen extends React.Component {
     if (this.state.loser_id === "") {
       this.setState({loser_id: null});
     }
+  }
+
+  stateButtonHandler(e) {
+    e.preventDefault();
+    this.setEmptyToNull()
     document.getElementById("p1").innerHTML = "set_id entered: " + this.state.set_id;
     document.getElementById("p2").innerHTML = "winner_id entered: " + this.state.winner_id;
     document.getElementById("pp2").innerHTML = "loser_id entered: " + this.state.loser_id;
@@ -59,15 +64,7 @@ class PlayerDataScreen extends React.Component {
   searchChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
-    if (this.state.set_id === "") {
-      this.setState({set_id: null});
-    }
-    if (this.state.winner_id === "") {
-      this.setState({winner_id: null});
-    }
-    if (this.state.loser_id === "") {
-      this.setState({loser_id: null});
-    }
+    this.setEmptyToNull()
 
     console.log(this.state);
 
