@@ -143,13 +143,67 @@ def crud_handler(table_slug, operation):
 
     elif operation == 'update':
         if table_slug == 'players':
+            query_data = json.loads(request.data)
             try:
-                player = Players(player_id=request.form.get('player_id'), player_name=request.form.get('player_name'))
-                db.session.add(player)
+                player = Players.query.filter_by(player_id=query_data['player_id']).first()
+                player.player_name = query_data['player_name']
                 db.session.commit()
-                return make_response('Successfully inserted player', 50)
+                return make_response('Successfully updated player', 200)
             except:
-                return make_response('Error inserting player', 50)
+                return make_response('Error updating player', 500)
+
+        if table_slug == 'stages':
+            query_data = json.loads(request.data)
+            try:
+                stage = Stages.query.filter_by(stage_id=query_data['stage_id']).first()
+                stage.stage_name = query_data['stage_name']
+                db.session.commit()
+                return make_response('Successfully updated stage', 200)
+            except:
+                return make_response('Error updating stage', 500)
+
+        if table_slug == 'games':
+            query_data = json.loads(request.data)
+            try:
+                game = Games.query.filter_by(game_id=query_data['game_id']).first()
+                game.winner_id = query_data['winner_id']
+                game.loser_id = query_data['loser_id']
+                game.winner_score = query_data['winner_score']
+                game.loser_score = query_data['loser_score']
+                game.winner_char_id = query_data['winner_char_id']
+                game.loser_char_id = query_data['loser_char_id']
+                game.stage_id = query_data['stage_id']
+                game.set_id = query_data['set_id']
+                
+                db.session.commit()
+                return make_response('Successfully updated game', 200)
+            except:
+                return make_response('Error updating game', 500)
+
+        if table_slug == 'characters':
+            query_data = json.loads(request.data)
+            try:
+                num_rows_updated = db.session.query(Characters).filter_by(char_id=query_data['char_id']).update(dict(char_name=query_data['char_name']))
+                
+                db.session.commit()
+                return make_response('Successfully updated character', 200)
+            except Exception as ex:
+                print(repr(ex))
+                return make_response('Error updating character', 500)
+
+        if table_slug == 'sets':
+            query_data = json.loads(request.data)
+            try:
+                sets = Sets.query.filter_by(set_id=query_data['set_id']).first()
+                sets.set_winner_id = query_data['set_winner_id']
+                sets.set_loser_id = query_data['set_loser_id']
+                
+                db.session.commit()
+                return make_response('Successfully updated set', 200)
+            except:
+                return make_response('Error updating set', 500)
+        
+        
 
     elif operation == 'delete':
         query_data = json.loads(request.data)
