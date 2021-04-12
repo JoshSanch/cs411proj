@@ -1,5 +1,7 @@
 import './App.css';
 import React from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
+import ReactDOM from 'react-dom'
 
 class CharacterDataScreen extends React.Component {
 
@@ -122,10 +124,48 @@ class CharacterDataScreen extends React.Component {
 
     console.log(requestOptions);
 
-    fetch('/characters/search', requestOptions);
+    var newTableData;
+    fetch('/characters/search', requestOptions)
+        .then(res => res.json())
+        .then(data => newTableData = data);
+
+    // waits for the API then sets the table as needed
+    setTimeout(() => {
+      console.log(newTableData);
+      const newTableCols = [{
+        dataField: 'char_id',
+        text: 'Character ID'
+      }, {
+        dataField: 'char_name',
+        text: 'Character Name'
+      }
+      ];
+      const listItem = document.getElementById("searchResultsDIV");
+      // newTableData = [
+      //   {
+      //     char_id: 1,
+      //     char_name: 2
+      //   }
+      // ]
+      const newTable = (
+        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} />
+      )
+
+      ReactDOM.render(newTable , listItem)
+
+    }, 2000);
   }
 
   render() {
+    const charCols = [{
+      dataField: 'char_id',
+      text: 'Character ID'
+    }, {
+      dataField: 'char_name',
+      text: 'Character Name'
+    }
+    ];
+
       return (
       <div>
         <p>Hello! </p>
@@ -172,6 +212,14 @@ class CharacterDataScreen extends React.Component {
           <p id="p9">Press this button search for data:</p>
           <button onClick={this.searchChangeHandler}>Search</button>
           <p id="p10"></p>
+        </div>
+        <div id="searchResultsDIV">
+          <BootstrapTable 
+            id="searchResultsTable" 
+            keyField='char_id' 
+            data={[]} 
+            columns={charCols} 
+          />
         </div>
       </div>
     );

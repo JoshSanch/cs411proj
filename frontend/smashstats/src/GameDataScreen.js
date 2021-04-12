@@ -1,5 +1,7 @@
 import './App.css';
 import React from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
+import ReactDOM from 'react-dom'
 
 class GameDataScreen extends React.Component {
 
@@ -215,11 +217,102 @@ class GameDataScreen extends React.Component {
         })
     };
 
-    fetch('/games/search', requestOptions);
+    var newTableData;
+    fetch('/games/search', requestOptions)
+        .then(res => res.json())
+        .then(data => newTableData = data);
+
+    // waits for the API then sets the table as needed
+
+    
+
+
+    setTimeout(() => {
+      console.log(newTableData);
+      const newTableCols = [{
+        dataField: 'game_id',
+        text: 'Game Id'
+      }, {
+        dataField: 'winner_id',
+        text: 'Winner ID'
+      }, {
+        dataField: 'loser_id',
+        text: 'Loser ID'
+      }, {
+        dataField: 'winner_score',
+        text: 'Winner Score'
+      }, {
+        dataField: 'loser_score',
+        text: 'Loser Score'
+      }, {
+        dataField: 'winner_char_id',
+        text: 'Winner Character ID'
+      }, {
+        dataField: 'loser_char_id',
+        text: 'Loser Character ID'
+      }, {
+        dataField: 'stage_id',
+        text: 'Stage ID'
+      }, {
+        dataField: 'set_id',
+        text: 'Set ID'
+      },
+      ];
+      const listItem = document.getElementById("searchResultsDIV");
+      // newTableData = [
+      //   {
+      //     game_id: 1,
+      //     winner_id: 2,
+      //     loser_id: 3,
+      //     winner_score: 4,
+      //     loser_score: 5,
+      //     winner_char_id: 6,
+      //     loser_char_id: 7,
+      //     stage_id: 8,
+      //     set_id: 9
+      //   }
+      // ]
+      const newTable = (
+        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} />
+      )
+
+      ReactDOM.render(newTable , listItem)
+
+    }, 2000);
   }
 
 
   render () {
+    const stageCols = [{
+      dataField: 'game_id',
+      text: 'Game Id'
+    }, {
+      dataField: 'winner_id',
+      text: 'Winner ID'
+    }, {
+      dataField: 'loser_id',
+      text: 'Loser ID'
+    }, {
+      dataField: 'winner_score',
+      text: 'Winner Score'
+    }, {
+      dataField: 'loser_score',
+      text: 'Loser Score'
+    }, {
+      dataField: 'winner_char_id',
+      text: 'Winner Character ID'
+    }, {
+      dataField: 'loser_char_id',
+      text: 'Loser Character ID'
+    }, {
+      dataField: 'stage_id',
+      text: 'Stage ID'
+    }, {
+      dataField: 'set_id',
+      text: 'Set ID'
+    },
+    ];
+
     return (
     <div>
         <p>Hello! </p>
@@ -315,6 +408,14 @@ class GameDataScreen extends React.Component {
           <p id="p9">Press this button search for data:</p>
           <button onClick={this.searchChangeHandler}>Search</button>
           <p id="p10"></p>
+        </div>
+        <div id="searchResultsDIV">
+          <BootstrapTable 
+            id="searchResultsTable" 
+            keyField='stage_id' 
+            data={[]} 
+            columns={stageCols} 
+          />
         </div>
     </div>
     );

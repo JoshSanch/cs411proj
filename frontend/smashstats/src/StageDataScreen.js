@@ -1,11 +1,14 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
+import ReactDOM from 'react-dom'
 
 class StageDataScreen extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {stage_id: "", stage_name: ""};
+    this.query_state = null;
     this.stateButtonHandler = this.stateButtonHandler.bind(this);
     this.deleteChangeHandler = this.deleteChangeHandler.bind(this);
     this.handleStageIDChange = this.handleStageIDChange.bind(this);
@@ -20,27 +23,6 @@ class StageDataScreen extends React.Component {
   // static stageData; 
   // static setStageData;
 
-  useEffect() {
-    // Simple POST request with a JSON body using fetch. NEEDS TO BE WORKED ON
-
-    this.setEmptyToNull()
-
-    console.log(this.state);
-
-    // const requestOptions = {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({
-    //       stage_id: this.state.stage_id,
-    //       stage_name: this.state.stage_name
-    //     })
-    // };
-
-
-    // fetch('/stages/create', requestOptions)
-    //     .then(response => response.json())
-    //     .then(data => this.setState({ postId: data.id }));
-  }
 
   setEmptyToNull() {
     if (this.state.stage_id === "") {
@@ -122,7 +104,7 @@ class StageDataScreen extends React.Component {
     document.getElementById("p10").innerHTML = "Search pressed!";
     this.setEmptyToNull()
 
-    console.log(this.state);
+    // console.log(this.state);
 
     const requestOptions = {
         method: 'POST',
@@ -133,15 +115,42 @@ class StageDataScreen extends React.Component {
         })
     };
 
-    // [stageData, setStageData] = useState(0);
-    fetch('/stages/search', requestOptions);
-    //     .then(res => res.json())
-    //     .then(data => {
-    //       setStageData(data.result);
-    //     });
+    var newTableData;
+    fetch('/stages/search', requestOptions)
+        .then(res => res.json())
+        .then(data => newTableData = data);
+
+    // waits for the API then sets the table as needed
+    setTimeout(() => {
+      const newTableCols = [{
+        dataField: 'stage_id',
+        text: 'Stage Id'
+      }, {
+        dataField: 'stage_name',
+        text: 'Stage Name'
+      }
+      ];
+      const listItem = document.getElementById("searchResultsDIV");
+      const newTable = (
+        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} />
+      )
+
+      ReactDOM.render(newTable , listItem)
+
+    }, 2000);
+
   }
 
   render () {
+    const stageCols = [{
+      dataField: 'stage_id',
+      text: 'Stage Id'
+    }, {
+      dataField: 'stage_name',
+      text: 'Stage Name'
+    }
+    ];
+
     return (
     <div>
         <p>Hello! </p>
@@ -188,6 +197,14 @@ class StageDataScreen extends React.Component {
           <p id="p9">Press this button search for data:</p>
           <button onClick={this.searchChangeHandler}>Search</button>
           <p id="p10"></p>
+        </div>
+        <div id="searchResultsDIV">
+          <BootstrapTable 
+            id="searchResultsTable" 
+            keyField='stage_id' 
+            data={[]} 
+            columns={stageCols} 
+          />
         </div>
     </div>
     );

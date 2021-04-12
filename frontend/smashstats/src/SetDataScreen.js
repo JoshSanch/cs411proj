@@ -1,5 +1,7 @@
 import './App.css';
 import React from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
+import ReactDOM from 'react-dom'
 
 class PlayerDataScreen extends React.Component {
 
@@ -127,10 +129,55 @@ class PlayerDataScreen extends React.Component {
         })
     };
 
-    fetch('/sets/search', requestOptions);
+    var newTableData;
+    fetch('/sets/search', requestOptions)
+        .then(res => res.json())
+        .then(data => newTableData = data);
+
+    // waits for the API then sets the table as needed
+    setTimeout(() => {
+      console.log(newTableData);
+      const newTableCols = [{
+        dataField: 'set_id',
+        text: 'Set ID'
+      }, {
+        dataField: 'winner_id',
+        text: 'Winner ID'
+      }, {
+        dataField: 'loser_id',
+        text: 'Loser ID'
+      }
+      ];
+      // newTableData = [
+      //   {
+      //     set_id: 1,
+      //     winner_id: 2,
+      //     loser_id: 3
+      //   }
+      // ]
+      const listItem = document.getElementById("searchResultsDIV");
+      const newTable = (
+        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} />
+      )
+
+      ReactDOM.render(newTable , listItem)
+
+    }, 5000);
   }
 
   render () {
+
+    const setCols = [{
+      dataField: 'set_id',
+      text: 'Set ID'
+    }, {
+      dataField: 'winner_id',
+      text: 'Winner ID'
+    }, {
+      dataField: 'loser_id',
+      text: 'Loser ID'
+    }
+    ];
     return (
       <div>
         <p>Hello! </p>
@@ -184,6 +231,14 @@ class PlayerDataScreen extends React.Component {
           <p id="p9">Press this button search for data:</p>
           <button onClick={this.searchChangeHandler}>Search</button>
           <p id="p10"></p>
+        </div>
+        <div id="searchResultsDIV">
+          <BootstrapTable 
+            id="searchResultsTable" 
+            keyField='stage_id' 
+            data={[]} 
+            columns={setCols} 
+          />
         </div>
       </div>
     );

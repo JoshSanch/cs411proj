@@ -1,5 +1,7 @@
 import './App.css';
 import React from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
+import ReactDOM from 'react-dom'
 
 class PlayerDataScreen extends React.Component {
 
@@ -14,6 +16,7 @@ class PlayerDataScreen extends React.Component {
     this.addChangeHandler = this.addChangeHandler.bind(this);
     this.updateChangeHandler = this.updateChangeHandler.bind(this);
     this.deleteChangeHandler = this.deleteChangeHandler.bind(this);
+    this.searchChangeHandler = this.searchChangeHandler.bind(this);
     this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
@@ -114,10 +117,48 @@ class PlayerDataScreen extends React.Component {
         })
     };
 
-    fetch('/players/search', requestOptions);
+    var newTableData;
+    fetch('/players/search', requestOptions)
+        .then(res => res.json())
+        .then(data => newTableData = data);
+
+    // waits for the API then sets the table as needed
+    setTimeout(() => {
+      const newTableCols = [{
+        dataField: 'player_id',
+        text: 'Player ID'
+      }, {
+        dataField: 'player_name',
+        text: 'Player Name'
+      }
+      ];
+      const listItem = document.getElementById("searchResultsDIV");
+      // newTableData = [
+      //   {
+      //     player_id: 1,
+      //     player_name: 2
+      //   }
+      // ]
+      const newTable = (
+        <BootstrapTable id="searchResultsTable" keyField="player_id" data={newTableData} columns={newTableCols} />
+      )
+      
+      console.log(newTableData);
+      ReactDOM.render(newTable , listItem)
+
+    }, 5000);
   }
 
   render () {
+    const tableCols = [{
+      dataField: 'player_id',
+      text: 'Player ID'
+    }, {
+      dataField: 'player_name',
+      text: 'Player Name'
+    }
+    ];
+
     return (
       <div>
         <p>Hello! </p>
@@ -164,6 +205,14 @@ class PlayerDataScreen extends React.Component {
           <p id="p9">Press this button search for data:</p>
           <button onClick={this.searchChangeHandler}>Search</button>
           <p id="p10"></p>
+        </div>
+        <div id="searchResultsDIV">
+          <BootstrapTable 
+            id="searchResultsTable" 
+            keyField='stage_id' 
+            data={[]} 
+            columns={tableCols} 
+          />
         </div>
       </div>
     );
