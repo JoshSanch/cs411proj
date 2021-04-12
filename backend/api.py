@@ -70,7 +70,6 @@ def crud_handler(table_slug, operation):
 
         if table_slug == 'players':
             try:
-                try:
                 result = Players.query.filter_by(**query_data).all()
                 result = [i.to_dict() for i in result]
                 return make_response(jsonify(result), 200)
