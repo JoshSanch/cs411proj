@@ -143,8 +143,9 @@ def crud_handler(table_slug, operation):
         if table_slug == 'players':
             query_data = json.loads(request.data)
             try:
-                player = Players.query.filter_by(player_id=query_data['player_id']).first()
-                player.player_name = query_data['player_name']
+                num_rows_updated = db.session.query(Players).filter_by(player_id=query_data['player_id']).update(dict(
+                    player_name=query_data['player_name']
+                    ))
                 db.session.commit()
                 return make_response('Successfully updated player', 200)
             except:
@@ -153,8 +154,9 @@ def crud_handler(table_slug, operation):
         if table_slug == 'stages':
             query_data = json.loads(request.data)
             try:
-                stage = Stages.query.filter_by(stage_id=query_data['stage_id']).first()
-                stage.stage_name = query_data['stage_name']
+                num_rows_updated = db.session.query(Stages).filter_by(stage_id=query_data['stage_id']).update(dict(
+                    stage_name=query_data['stage_name']
+                    ))
                 db.session.commit()
                 return make_response('Successfully updated stage', 200)
             except:
@@ -163,15 +165,16 @@ def crud_handler(table_slug, operation):
         if table_slug == 'games':
             query_data = json.loads(request.data)
             try:
-                game = Games.query.filter_by(game_id=query_data['game_id']).first()
-                game.winner_id = query_data['winner_id']
-                game.loser_id = query_data['loser_id']
-                game.winner_score = query_data['winner_score']
-                game.loser_score = query_data['loser_score']
-                game.winner_char_id = query_data['winner_char_id']
-                game.loser_char_id = query_data['loser_char_id']
-                game.stage_id = query_data['stage_id']
-                game.set_id = query_data['set_id']
+                num_rows_updated = db.session.query(Games).filter_by(game_id=query_data['game_id']).update(dict(
+                    winner_id=query_data['winner_id'],
+                    loser_id=query_data['loser_id'],
+                    winner_score=query_data['winner_score'],
+                    loser_score=query_data['loser_score'],
+                    winner_char_id=query_data['winner_char_id'],
+                    loser_char_id=query_data['loser_char_id'],
+                    stage_id=query_data['stage_id'],
+                    set_id=query_data['set_id']
+                    ))
                 
                 db.session.commit()
                 return make_response('Successfully updated game', 200)
@@ -192,9 +195,10 @@ def crud_handler(table_slug, operation):
         if table_slug == 'sets':
             query_data = json.loads(request.data)
             try:
-                sets = Sets.query.filter_by(set_id=query_data['set_id']).first()
-                sets.set_winner_id = query_data['set_winner_id']
-                sets.set_loser_id = query_data['set_loser_id']
+                num_rows_updated = db.session.query(Sets).filter_by(set_id=query_data['set_id']).update(dict(
+                    set_winner_id=query_data['set_winner_id'],
+                    set_loser_id=query_data['set_loser_id']
+                    ))
                 
                 db.session.commit()
                 return make_response('Successfully updated set', 200)
