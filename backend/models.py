@@ -16,24 +16,36 @@ db = SQLAlchemy(app)
 
 
 class Players(db.Model):
-    player_id = db.Column(db.String(30), unique=True, index=True, primary_key=True)
-    player_name = db.Column(db.String(30), index=True, primary_key=False)
+    player_id = db.Column(db.String(30), unique=True, primary_key=True)
+    player_name = db.Column(db.String(30))
     
     def __repr__(self):
         return '<Name: {}>'.format(self.player_name)
 
 
 class Stages(db.Model):
-    return
+    stage_id = db.Column(db.Integer, unique=True, primary_key=True)
+    stage_name = db.Column(db.String(30))
 
 
 class Games(db.Model):
-    return
+    game_id = db.Column(db.Integer, unique=True, primary_key=True)
+    winner_id = db.Column(db.String(30))
+    loser_id = db.Column(db.String(30))
+    winner_score = db.Column(db.Integer)
+    loser_score = db.Column(db.Integer)
+    winner_char_id = db.Column(db.Integer)
+    loser_char_id = db.Column(db.Integer)
+    stage_id = db.Column(db.Integer)
+    set_id = db.Column(db.String(30))
 
 
 class Characters(db.Model):
-    return
+    char_id = db.Column(db.Integer, unique=True, primary_key=True)
+    char_name = db.Column(db.String(30))
 
 
 class Sets(db.Model):
-    return
+    set_id = db.Column(db.String(30), unique=True, primary_key=True)
+    set_winner_id = db.Column(db.String(30))
+    set_loser_id = db.Column(db.String(30))
