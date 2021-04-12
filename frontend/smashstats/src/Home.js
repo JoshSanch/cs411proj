@@ -119,19 +119,19 @@ function HomeScreen() {
           <button onClick={queryButton3} id="query1">This button shows the third query</button>
           <button onClick={queryButton4} id="query1">This button shows the fourth query</button>
         </div>
-        <div id="topPlayerDIV">
+        <div id="topPlayerDIV" style={{display: "none"}}>
           <p>Data on top players, the number of games played, and win rate:</p>
           <BootstrapTable keyField='id1' data={topPlayerData} columns={ topPlayerCols } pagination={ paginationFactory() }/>
         </div>
-        <div id="stageDIV">
+        <div id="stageDIV" style={{display: "none"}}>
           <p>Data on stages and the number of games played on each stage</p>
           <BootstrapTable keyField='id2' data={stageData} columns={ stageCols } pagination={ paginationFactory() }/>
         </div>
-        <div id="charDIV">
+        <div id="charDIV" style={{display: "none"}}>
           <p>Data on characters, number of games where the character is played, and their win rates</p>
           <BootstrapTable keyField='id2' data={charData} columns={ charCols } pagination={ paginationFactory() }/>
         </div>
-        <div id="charStageDIV">
+        <div id="charStageDIV" style={{display: "none"}}>
           <p>Data on characters, stages, and the number of games each character has won on each stage</p>
           <BootstrapTable keyField='id3' data={charStageData} columns={ charStageCols} pagination={ paginationFactory() }/>
         </div>
