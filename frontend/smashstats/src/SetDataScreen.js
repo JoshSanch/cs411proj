@@ -2,12 +2,13 @@ import './App.css';
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ReactDOM from 'react-dom'
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 class PlayerDataScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { set_id: "", winner_id: "", loser_id: ""};
+    this.state = { set_id: "", set_winner_id: "", set_loser_id: ""};
     this.stateButtonHandler = this.stateButtonHandler.bind(this);
     this.handleSetIDChange = this.handleSetIDChange.bind(this);
     this.handleWinnerIDChange = this.handleWinnerIDChange.bind(this);
@@ -25,22 +26,22 @@ class PlayerDataScreen extends React.Component {
   }
 
   handleWinnerIDChange(e) {
-    this.setState({winner_id: e.target.value});
+    this.setState({set_winner_id: e.target.value});
   }
 
   handleLoserIDChange(e) {
-    this.setState({loser_id: e.target.value});
+    this.setState({set_loser_id: e.target.value});
   }
 
   setEmptyToNull() {
     if (this.state.set_id === "") {
       this.setState({set_id: null});
     }
-    if (this.state.winner_id === "") {
-      this.setState({winner_id: null});
+    if (this.state.set_winner_id === "") {
+      this.setState({set_winner_id: null});
     }
-    if (this.state.loser_id === "") {
-      this.setState({loser_id: null});
+    if (this.state.set_loser_id === "") {
+      this.setState({set_loser_id: null});
     }
   }
 
@@ -48,8 +49,8 @@ class PlayerDataScreen extends React.Component {
     e.preventDefault();
     this.setEmptyToNull()
     document.getElementById("p1").innerHTML = "set_id entered: " + this.state.set_id;
-    document.getElementById("p2").innerHTML = "winner_id entered: " + this.state.winner_id;
-    document.getElementById("pp2").innerHTML = "loser_id entered: " + this.state.loser_id;
+    document.getElementById("p2").innerHTML = "set_winner_id entered: " + this.state.set_winner_id;
+    document.getElementById("pp2").innerHTML = "set_loser_id entered: " + this.state.set_loser_id;
   }
 
   updateChangeHandler(e) {
@@ -64,8 +65,8 @@ class PlayerDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           set_id: this.state.set_id,
-          winner_id: this.state.winner_id,
-          loser_id: this.state.loser_id
+          set_winner_id: this.state.set_winner_id,
+          set_loser_id: this.state.set_loser_id
         })
     };
 
@@ -84,8 +85,8 @@ class PlayerDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           set_id: this.state.set_id,
-          winner_id: this.state.winner_id,
-          loser_id: this.state.loser_id
+          set_winner_id: this.state.set_winner_id,
+          set_loser_id: this.state.set_loser_id
         })
     };
 
@@ -104,8 +105,8 @@ class PlayerDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           set_id: this.state.set_id,
-          winner_id: this.state.winner_id,
-          loser_id: this.state.loser_id
+          set_winner_id: this.state.set_winner_id,
+          set_loser_id: this.state.set_loser_id
         })
     };
 
@@ -124,8 +125,8 @@ class PlayerDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           set_id: this.state.set_id,
-          winner_id: this.state.winner_id,
-          loser_id: this.state.loser_id
+          set_winner_id: this.state.set_winner_id,
+          set_loser_id: this.state.set_loser_id
         })
     };
 
@@ -141,23 +142,16 @@ class PlayerDataScreen extends React.Component {
         dataField: 'set_id',
         text: 'Set ID'
       }, {
-        dataField: 'winner_id',
+        dataField: 'set_winner_id',
         text: 'Winner ID'
       }, {
-        dataField: 'loser_id',
+        dataField: 'set_loser_id',
         text: 'Loser ID'
       }
       ];
-      // newTableData = [
-      //   {
-      //     set_id: 1,
-      //     winner_id: 2,
-      //     loser_id: 3
-      //   }
-      // ]
       const listItem = document.getElementById("searchResultsDIV");
       const newTable = (
-        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} />
+        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
       )
 
       ReactDOM.render(newTable , listItem)
@@ -171,10 +165,10 @@ class PlayerDataScreen extends React.Component {
       dataField: 'set_id',
       text: 'Set ID'
     }, {
-      dataField: 'winner_id',
+      dataField: 'set_winner_id',
       text: 'Winner ID'
     }, {
-      dataField: 'loser_id',
+      dataField: 'set_loser_id',
       text: 'Loser ID'
     }
     ];
@@ -196,15 +190,15 @@ class PlayerDataScreen extends React.Component {
             />
             <input
               type="text"
-              value={this.state.winner_id}
+              value={this.state.set_winner_id}
               onChange={this.handleWinnerIDChange}
-              placeholder="winner_id"
+              placeholder="set_winner_id"
             />
             <input
               type="text"
-              value={this.state.loser_id}
+              value={this.state.set_loser_id}
               onChange={this.handleLoserIDChange}
-              placeholder="loser_id"
+              placeholder="set_loser_id"
             />
             <button type="submit" onClick={this.stateButtonHandler}>Press here</button>
           </form>
