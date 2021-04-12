@@ -167,7 +167,8 @@ def crud_handler(table_slug, operation):
             query_data = [getattr(class_map[table_slug], k).ilike(f"%{v}%") for k, v in query_data.items()]
             result = class_map[table_slug].query.filter(*query_data).delete()
             return make_response(jsonify(message='Successfully deleted data associated with query.'), 200)
-        except:
+        except Exception as ex:
+            print(repr(ex))
             return make_response(jsonify(message='Error deleting data'), 500)
 
     return make_response(
