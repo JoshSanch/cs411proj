@@ -109,7 +109,7 @@ def crud_handler(table_slug, operation):
         if table_slug == 'characters':
             try:
                 query_data = json.loads(request.data)
-                character = Characters(char_id=query_data['char_id'], char_name=query_data'char_name'])
+                character = Characters(char_id=query_data['char_id'], char_name=query_data['char_name'])
                 db.session.add(character)
                 db.session.commit()
                 return make_response(jsonify(message="Character successfully created."), 200)
