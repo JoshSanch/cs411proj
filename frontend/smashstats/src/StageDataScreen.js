@@ -96,7 +96,7 @@ class StageDataScreen extends React.Component {
         })
     };
     
-    fetch('/stages/create', requestOptions);
+    fetch('/stages/search', requestOptions);
   }
 
   render () { 
