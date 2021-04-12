@@ -48,7 +48,7 @@ function HomeScreen() {
   
   const stageCols = [{
     dataField: 'stage_name',
-    text: 'ID'
+    text: 'Stage Name'
   }, {
     dataField: 'games_played',
     text: '# of games played'
@@ -114,22 +114,22 @@ function HomeScreen() {
         <p>This is the home screen</p>
         {/* <div><pre>{JSON.stringify(topTemp, null, 2) }</pre></div> */}
         <div id="queryButtons">
-          <button onClick={queryButton1} id="query1">This button shows the first query</button>
-          <button onClick={queryButton2} id="query1">This button shows the second query</button>
-          <button onClick={queryButton3} id="query1">This button shows the third query</button>
-          <button onClick={queryButton4} id="query1">This button shows the fourth query</button>
+          <button onClick={queryButton1} >This button shows the first query</button>
+          <button onClick={queryButton2} >This button shows the second query</button>
+          <button onClick={queryButton3} >This button shows the third query</button>
+          <button onClick={queryButton4} >This button shows the fourth query</button>
         </div>
         <div id="topPlayerDIV" style={{display: "none"}}>
           <p>Data on top players, the number of games played, and win rate:</p>
-          <BootstrapTable keyField='id1' data={topPlayerData} columns={ topPlayerCols } pagination={ paginationFactory() }/>
+          <BootstrapTable keyField='player_id' data={topPlayerData} columns={ topPlayerCols } pagination={ paginationFactory() }/>
         </div>
         <div id="stageDIV" style={{display: "none"}}>
           <p>Data on stages and the number of games played on each stage</p>
-          <BootstrapTable keyField='id2' data={stageData} columns={ stageCols } pagination={ paginationFactory() }/>
+          <BootstrapTable keyField='stage_name' data={stageData} columns={ stageCols } pagination={ paginationFactory() }/>
         </div>
         <div id="charDIV" style={{display: "none"}}>
           <p>Data on characters, number of games where the character is played, and their win rates</p>
-          <BootstrapTable keyField='id2' data={charData} columns={ charCols } pagination={ paginationFactory() }/>
+          <BootstrapTable keyField='char_name' data={charData} columns={ charCols } pagination={ paginationFactory() }/>
         </div>
         <div id="charStageDIV" style={{display: "none"}}>
           <p>Data on characters, stages, and the number of games each character has won on each stage</p>
