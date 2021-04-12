@@ -53,10 +53,10 @@ def exec_advanced_query(query_name):
 def crud_handler(table_slug, operation): 
     #table_slug is for table, operation for CRUD
     if operation == 'create':
-        #TODO: Change remaining tables to use json.loads
         if table_slug == 'players':
             try:
-                player = Players(player_id=request.form.get('player_id'), player_name=request.form.get('player_name'))
+                query_data = json.loads(request.data)
+                player = Players(player_id=query_data['player_id'], player_name=query_data['player_name'])
                 db.session.add(player)
                 db.session.commit()
                 return make_response(jsonify(message="Player successfully created."), 200)
@@ -75,18 +75,19 @@ def crud_handler(table_slug, operation):
                 return make_response(jsonify(message='Error inserting stage'), 500)
 
         if table_slug == 'games':
-            try:
+            try:  
+                query_data = json.loads(request.data)
                 game = Games(
-                    game_id=request.form.get('game_id'), 
-                    winner_id=request.form.get('winner_id'), 
-                    loser_id=request.form.get('loser_id'), 
-                    winner_score=request.form.get('winner_score'),
-                    loser_score=request.form.get('loser_score'), 
-                    winner_char_id=request.form.get('winner_char_id'), 
-                    loser_char_id=request.form.get('loser_char_id'), 
-                    stage_id=request.form.get('stage_id'),
-                    set_id=request.form.get('set_id')
-                    )
+                    game_id=query_data['game_id'], 
+                    winner_id=query_data['winner_id'], 
+                    loser_id=query_data['loser_id'], 
+                    winner_score=query_data['winner_score'],
+                    loser_score=query_data['loser_score'], 
+                    winner_char_id=query_data['winner_char_id'], 
+                    loser_char_id=query_data['loser_char_id'], 
+                    stage_id=query_data['stage_id'],
+                    set_id=query_data['set_id']
+                )
                 db.session.add(game)
                 db.session.commit()
                 return make_response(jsonify(message="Game successfully created."), 200)
@@ -96,7 +97,8 @@ def crud_handler(table_slug, operation):
 
         if table_slug == 'sets':
             try:
-                sets = Sets(set_id=request.form.get('set_id'), set_winner_id=request.form.get('set_winner_id'), set_loser_id=request.form.get('set_loser_id'))
+                query_data = json.loads(request.data)
+                sets = Sets(set_id=query_data['set_id'], set_winner_id=query_data['set_winner_id'], set_loser_id=query_data['set_loser_id'])
                 db.session.add(sets)
                 db.session.commit()
                 return make_response(jsonify(message="Set successfully created."), 200)
@@ -106,7 +108,8 @@ def crud_handler(table_slug, operation):
 
         if table_slug == 'characters':
             try:
-                character = Characters(char_id=request.form.get('char_id'), char_name=request.form.get('char_name'))
+                query_data = json.loads(request.data)
+                character = Characters(char_id=query_data['char_id'], char_name=query_data'char_name'])
                 db.session.add(character)
                 db.session.commit()
                 return make_response(jsonify(message="Character successfully created."), 200)
@@ -119,7 +122,6 @@ def crud_handler(table_slug, operation):
     elif operation == 'search':
         query_data = json.loads(request.data)
         query_data = {k: v for k, v in query_data.items() if v is not None}
-        print(query_data)
 
         class_map = {
             "players": Players,
