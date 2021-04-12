@@ -14,12 +14,26 @@ app.config["SQLALCHEMY_DATABASE_URI"] = database_file
 
 db = SQLAlchemy(app)
 
-class Player(db.Model):
+
+class Players(db.Model):
     player_id = db.Column(db.String(30), unique=True, index=True, primary_key=True)
-    player_name = db.Column(db.String(30), index=True, index=True, primary_key=False)
+    player_name = db.Column(db.String(30), index=True, primary_key=False)
     
     def __repr__(self):
         return '<Name: {}>'.format(self.player_name)
 
 
-#TODO: Add remaining tables here
+class Stages(db.Model):
+    return
+
+
+class Games(db.Model):
+    return
+
+
+class Characters(db.Model):
+    return
+
+
+class Sets(db.Model):
+    return
