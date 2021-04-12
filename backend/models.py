@@ -7,10 +7,10 @@ from sqlalchemy import text
 project_dir = os.path.dirname(os.path.abspath(__file__))
 
 ##not sure about this part (copied from tutorial, might want to look into it). Might not be necessary
-database_file = "sqlite:///{}".format(os.path.join(project_dir, "smashproj.db"))
+#database_file = "sqlite:///{}".format(os.path.join(project_dir, "smashproj.db"))
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = database_file
+#app.config["SQLALCHEMY_DATABASE_URI"] = database_file
 
 db = SQLAlchemy(app)
 
