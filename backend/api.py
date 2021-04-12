@@ -53,6 +53,7 @@ def exec_advanced_query(query_name):
 def crud_handler(table_slug, operation): 
     #table_slug is for table, operation for CRUD
     if operation == 'create':
+        #TODO: Change remaining tables to use json.loads
         if table_slug == 'players':
             try:
                 player = Players(player_id=request.form.get('player_id'), player_name=request.form.get('player_name'))
@@ -64,11 +65,13 @@ def crud_handler(table_slug, operation):
 
         if table_slug == 'stages':
             try:
-                stage = Stages(stage_id=request.form.get('stage_id'), stage_name=request.form.get('stage_name'))
+                query_data = json.loads(request.data)
+                stage = Stages(stage_id=query_data['stage_id'], stage_name=query_data['stage_name'])
                 db.session.add(stage)
                 db.session.commit()
                 return make_response(jsonify(message="Stage successfully created."), 200)
-            except:
+            except Exception as ex:
+                print(repr(ex))
                 return make_response(jsonify(message='Error inserting stage'), 500)
 
         if table_slug == 'games':
