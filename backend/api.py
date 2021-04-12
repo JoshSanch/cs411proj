@@ -1,8 +1,12 @@
-from flask import Flask, make_response, jsonify
+from flask import Flask, make_response, jsonify, request, Response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
+
+from models import *
+
 import time
 import config
+import json
 
 #Import models? idk
 app = Flask(__name__)
@@ -61,19 +65,26 @@ def crud_handler(table_slug, operation):
 
 
     elif operation == 'search':
-        query_data = {col_name: col_val for col_name, col_val in request.form.values()}
+        query_data = json.loads(request.data)
+        query_data = {k: v for k, v in query_data.items() if v is not None}
+
         if table_slug == 'players':
             try:
-                result = Players.query.filter_by(query_data)
+                try:
+                result = Players.query.filter_by(**query_data).all()
+                result = [i.to_dict() for i in result]
                 return make_response(jsonify(result), 200)
-            except:
-                return make_response(jsonify(message='Error searching player'), 500)
+            except Exception as ex:
+                print(repr(ex))
+                return make_response(jsonify(message='Error searching stage'), 500)
 
         if table_slug == 'stages':
             try:
-                result = Stages.query.filter_by(query_data)
+                result = Stages.query.filter_by(**query_data).all()
+                result = [i.to_dict() for i in result]
                 return make_response(jsonify(result), 200)
-            except:
+            except Exception as ex:
+                print(repr(ex))
                 return make_response(jsonify(message='Error searching stage'), 500)
 
     elif operation == 'update':
