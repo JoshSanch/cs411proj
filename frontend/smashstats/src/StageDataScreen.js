@@ -20,7 +20,7 @@ class StageDataScreen extends React.Component {
     this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
-  // static stageData; 
+  // static stageData;
   // static setStageData;
 
 
@@ -190,7 +190,7 @@ class StageDataScreen extends React.Component {
         </div>
         <div id="deleteDIV">
           <p id="p7">Press this button to delete the corresponding stage ID from the database:</p>
-          <button onClick={this.deleteChangeHandler}>Add</button>
+          <button onClick={this.deleteChangeHandler}>Delete</button>
           <p id="p8"></p>
         </div>
         <div id="searchDIV">
@@ -199,11 +199,11 @@ class StageDataScreen extends React.Component {
           <p id="p10"></p>
         </div>
         <div id="searchResultsDIV">
-          <BootstrapTable 
-            id="searchResultsTable" 
-            keyField='stage_id' 
-            data={[]} 
-            columns={stageCols} 
+          <BootstrapTable
+            id="searchResultsTable"
+            keyField='stage_id'
+            data={[]}
+            columns={stageCols}
           />
         </div>
     </div>

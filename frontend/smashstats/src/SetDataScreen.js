@@ -224,7 +224,7 @@ class PlayerDataScreen extends React.Component {
         </div>
         <div id="deleteDIV">
           <p id="p7">Press this button to delete the corresponding stage ID from the database:</p>
-          <button onClick={this.deleteChangeHandler}>Add</button>
+          <button onClick={this.deleteChangeHandler}>Delete</button>
           <p id="p8"></p>
         </div>
         <div id="searchDIV">
@@ -233,11 +233,11 @@ class PlayerDataScreen extends React.Component {
           <p id="p10"></p>
         </div>
         <div id="searchResultsDIV">
-          <BootstrapTable 
-            id="searchResultsTable" 
-            keyField='stage_id' 
-            data={[]} 
-            columns={setCols} 
+          <BootstrapTable
+            id="searchResultsTable"
+            keyField='stage_id'
+            data={[]}
+            columns={setCols}
           />
         </div>
       </div>
