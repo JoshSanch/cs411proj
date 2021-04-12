@@ -118,23 +118,23 @@ def crud_handler(table_slug, operation):
         query_data = json.loads(request.data)
         query_data = {k: v for k, v in query_data.items() if v is not None}
 
-        if table_slug == 'players':
-            try:
-                result = Players.query.filter_by(**query_data).all()
-                result = [i.to_dict() for i in result]
-                return make_response(jsonify(result), 200)
-            except Exception as ex:
-                print(repr(ex))
-                return make_response(jsonify(message='Error searching stage'), 500)
+        class_map = {
+            "players": Players,
+            "stages": Stages,
+            "characters": Characters,
+            "sets": Sets,
+            "games": Games
+        }
 
-        if table_slug == 'stages':
-            try:
-                result = Stages.query.filter_by(**query_data).all()
-                result = [i.to_dict() for i in result]
-                return make_response(jsonify(result), 200)
-            except Exception as ex:
-                print(repr(ex))
-                return make_response(jsonify(message='Error searching stage'), 500)
+        try:
+            query_data = [getattr(class_map[table_slug], k).ilike(f"%{v}%") for k, v in query_data.items()]
+            result = Stages.query.filter(*query_data).all()
+            result = [i.to_dict() for i in result]
+            return make_response(jsonify(result), 200)
+        except Exception as ex:
+            print(repr(ex))
+            return make_response(jsonify(message=f'Error searching on {table_slug}'), 500)
+
 
     elif operation == 'update':
         if table_slug == 'players':
