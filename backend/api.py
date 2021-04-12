@@ -119,6 +119,7 @@ def crud_handler(table_slug, operation):
     elif operation == 'search':
         query_data = json.loads(request.data)
         query_data = {k: v for k, v in query_data.items() if v is not None}
+        print(query_data)
 
         class_map = {
             "players": Players,
@@ -130,7 +131,7 @@ def crud_handler(table_slug, operation):
 
         try:
             query_data = [getattr(class_map[table_slug], k).ilike(f"%{v}%") for k, v in query_data.items()]
-            result = Stages.query.filter(*query_data).all()
+            result = class_map[table_slug].query.filter(*query_data).all()
             result = [i.to_dict() for i in result]
             return make_response(jsonify(result), 200)
         except Exception as ex:
