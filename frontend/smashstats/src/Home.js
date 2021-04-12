@@ -69,7 +69,7 @@ function HomeScreen() {
 
   const charStageCols = [{
     dataField: 'char_name',
-    text: 'Player ID'
+    text: 'Character Name'
   }, {
     dataField: 'stage_name',
     text: 'Stage name'
