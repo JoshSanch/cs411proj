@@ -49,28 +49,54 @@ def exec_advanced_query(query_name):
 @app.route('/<table_slug>/<operation>', methods=['GET','POST'])
 def crud_handler(table_slug, operation): 
     #table_slug is for table, operation for CRUD
-
     if operation = 'create':
         if table_slug = 'players':
             try:
-                player = Player(player_id=request.form.get('player_id'), player_name=request.form.get('player_name'))
+                player = Players(player_id=request.form.get('player_id'), player_name=request.form.get('player_name'))
+                db.session.add(player)
+                db.session.commit()
+                return make_response(jsonify(message="Player successfully created."), 200)
+            except:
+                return make_response(jsonify(message='Error inserting player'), 500)
+
+
+    elif operation = 'search':
+        query_data = {col_name: col_val for col_name, col_val in request.form.values()}
+        if table_slug = 'players':
+            try:
+                result = Players.query.filter_by(query_data)
+                return make_response(jsonify(result), 200)
+            except:
+                return make_response(jsonify(message='Error searching player'), 500)
+
+        if table_slug = 'stages':
+            try:
+                result = Stages.query.filter_by(query_data)
+                return make_response(jsonify(result), 200)
+            except:
+                return make_response(jsonify(message='Error searching stage'), 500)
+
+    elif operation = 'update':
+        if table_slug = 'players':
+            try:
+                player = Players(player_id=request.form.get('player_id'), player_name=request.form.get('player_name'))
                 db.session.add(player)
                 db.session.commit()
                 return make_response('Successfully inserted player', 50)
             except:
                 return make_response('Error inserting player', 50)
 
-
-    elif operation = 'search':
-
-    elif operation = 'insert':
-
     elif operation = 'delete':
-
-
-
+        if table_slug = 'players':
+            try:
+                player = Players(player_id=request.form.get('player_id'), player_name=request.form.get('player_name'))
+                db.session.add(player)
+                db.session.commit()
+                return make_response('Successfully inserted player', 50)
+            except:
+                return make_response('Error inserting player', 50)
 
     return make_response(
         "I'm slugging!",
-        200
+        418
     )
