@@ -10,6 +10,7 @@ class PlayerDataScreen extends React.Component {
     this.handleSetIDChange = this.handleSetIDChange.bind(this);
     this.handleWinnerIDChange = this.handleWinnerIDChange.bind(this);
     this.handleLoserIDChange = this.handleLoserIDChange.bind(this);
+    this.searchChangeHandler = this.searchChangeHandler.bind(this);
   }
 
   handleSetIDChange(e) {
@@ -26,6 +27,15 @@ class PlayerDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
+    if (this.state.set_id == "") {
+      this.setState({set_id: null});
+    }
+    if (this.state.winner_id == "") {
+      this.setState({winner_id: null});
+    }
+    if (this.state.loser_id == "") {
+      this.setState({loser_id: null});
+    }
     document.getElementById("p1").innerHTML = "set_id entered: " + this.state.set_id;
     document.getElementById("p2").innerHTML = "winner_id entered: " + this.state.winner_id;
     document.getElementById("pp2").innerHTML = "loser_id entered: " + this.state.loser_id;
@@ -44,6 +54,34 @@ class PlayerDataScreen extends React.Component {
   deleteChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p8").innerHTML = "Delete pressed!";
+  }
+
+  searchChangeHandler(e) {
+    e.preventDefault();
+    document.getElementById("p10").innerHTML = "Search pressed!";
+    if (this.state.set_id == "") {
+      this.setState({set_id: null});
+    }
+    if (this.state.winner_id == "") {
+      this.setState({winner_id: null});
+    }
+    if (this.state.loser_id == "") {
+      this.setState({loser_id: null});
+    }
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          set_id: this.state.set_id,
+          winner_id: this.state.winner_id,
+          loser_id: this.state.loser_id
+        })
+    };
+    
+    fetch('/sets/search', requestOptions);
   }
 
   render () {
@@ -92,6 +130,11 @@ class PlayerDataScreen extends React.Component {
           <p id="p7">Press this button to delete the corresponding stage ID from the database:</p>
           <button onClick={this.deleteChangeHandler}>Add</button>
           <p id="p8"></p>
+        </div>
+        <div id="searchDIV">
+          <p id="p9">Press this button search for data:</p>
+          <button onClick={this.searchChangeHandler}>Search</button>
+          <p id="p10"></p>
         </div>
       </div>
     );

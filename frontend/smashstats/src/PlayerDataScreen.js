@@ -10,6 +10,7 @@ class PlayerDataScreen extends React.Component {
     this.deleteChangeHandler = this.deleteChangeHandler.bind(this);
     this.handlePlayerIDChange = this.handlePlayerIDChange.bind(this);
     this.handlePlayerNameChange = this.handlePlayerNameChange.bind(this);
+    this.searchChangeHandler = this.searchChangeHandler.bind(this);
   }
 
   handlePlayerIDChange(e) {
@@ -22,6 +23,12 @@ class PlayerDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
+    if (this.state.player_id == "") {
+      this.setState({player_id: null});
+    }
+    if (this.state.player_name == "") {
+      this.setState({player_name: null});
+    }
     document.getElementById("p1").innerHTML = "player_id entered: " + this.state.player_id;
     document.getElementById("p2").innerHTML = "player_name entered: " + this.state.player_name;
   }
@@ -39,6 +46,30 @@ class PlayerDataScreen extends React.Component {
   deleteChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p8").innerHTML = "Delete pressed!";
+  }
+
+  searchChangeHandler(e) {
+    e.preventDefault();
+    document.getElementById("p10").innerHTML = "Search pressed!";
+    if (this.state.player_id == "") {
+      this.setState({player_id: null});
+    }
+    if (this.state.player_name == "") {
+      this.setState({player_name: null});
+    }
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          player_id: this.state.player_id,
+          player_name: this.state.player_name
+        })
+    };
+    
+    fetch('/players/search', requestOptions);
   }
 
   render () {
@@ -81,6 +112,11 @@ class PlayerDataScreen extends React.Component {
           <p id="p7">Press this button to delete the corresponding stage ID from the database:</p>
           <button onClick={this.deleteChangeHandler}>Add</button>
           <p id="p8"></p>
+        </div>
+        <div id="searchDIV">
+          <p id="p9">Press this button search for data:</p>
+          <button onClick={this.searchChangeHandler}>Search</button>
+          <p id="p10"></p>
         </div>
       </div>  
     );
