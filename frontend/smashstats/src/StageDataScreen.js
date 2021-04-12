@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ReactDOM from 'react-dom'
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 class StageDataScreen extends React.Component {
 
@@ -132,7 +133,7 @@ class StageDataScreen extends React.Component {
       ];
       const listItem = document.getElementById("searchResultsDIV");
       const newTable = (
-        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} />
+        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
       )
 
       ReactDOM.render(newTable , listItem)
