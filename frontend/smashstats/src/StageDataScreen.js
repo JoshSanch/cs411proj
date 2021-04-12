@@ -10,9 +10,15 @@ class StageDataScreen extends React.Component {
     this.deleteChangeHandler = this.deleteChangeHandler.bind(this);
     this.handleStageIDChange = this.handleStageIDChange.bind(this);
     this.handleStageNameChange = this.handleStageNameChange.bind(this);
+    this.updateChangeHandler = this.updateChangeHandler.bind(this);
+    this.addChangeHandler = this.addChangeHandler.bind(this);
+    this.deleteChangeHandler = this.deleteChangeHandler.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
     this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
+
+  // static stageData; 
+  // static setStageData;
 
   useEffect() {
     // Simple POST request with a JSON body using fetch. NEEDS TO BE WORKED ON
@@ -63,16 +69,52 @@ class StageDataScreen extends React.Component {
   updateChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p4").innerHTML = "Update pressed!"
+
+    this.setEmptyToNull();
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        stage_id: this.state.stage_id,
+        stage_name: this.state.stage_name
+      })
+    }
+
+    fetch('/stages/update', requestOptions);
   }
 
   addChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p6").innerHTML = "Create pressed!";
+
+    this.setEmptyToNull();
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        stage_id: this.state.stage_id,
+        stage_name: this.state.stage_name
+      })
+    }
+
+    fetch('/stages/create', requestOptions);
   }
 
   deleteChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p8").innerHTML = "Delete pressed!";
+
+    this.setEmptyToNull();
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        stage_id: this.state.stage_id,
+        stage_name: this.state.stage_name
+      })
+    }
+
+    fetch('/stages/delete', requestOptions);
   }
 
   searchChangeHandler(e) {
@@ -91,7 +133,12 @@ class StageDataScreen extends React.Component {
         })
     };
 
+    // [stageData, setStageData] = useState(0);
     fetch('/stages/search', requestOptions);
+    //     .then(res => res.json())
+    //     .then(data => {
+    //       setStageData(data.result);
+    //     });
   }
 
   render () {
