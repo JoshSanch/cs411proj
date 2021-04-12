@@ -118,7 +118,6 @@ def crud_handler(table_slug, operation):
         
         return make_response(jsonify(message='Invalid Table'), 500)
 
-
     elif operation == 'search':
         query_data = json.loads(request.data)
         query_data = {k: v for k, v in query_data.items() if v is not None}
@@ -133,13 +132,12 @@ def crud_handler(table_slug, operation):
 
         try:
             query_data = [getattr(class_map[table_slug], k).ilike(f"%{v}%") for k, v in query_data.items()]
-            result = class_map[table_slug].query.filter(*query_data).all()
+            result = db.session.query(class_map[table_slug]).filter(*query_data).all()
             result = [i.to_dict() for i in result]
             return make_response(jsonify(result), 200)
         except Exception as ex:
             print(repr(ex))
             return make_response(jsonify(message=f'Error searching on {table_slug}'), 500)
-
 
     elif operation == 'update':
         if table_slug == 'players':
@@ -219,7 +217,8 @@ def crud_handler(table_slug, operation):
 
         try:
             query_data = [getattr(class_map[table_slug], k).ilike(f"%{v}%") for k, v in query_data.items()]
-            result = class_map[table_slug].query.filter(*query_data).delete()
+            db.session.query(class_map[table_slug]).filter(*query_data).delete(synchronize_session=False)
+            db.session.commit()
             return make_response(jsonify(message='Successfully deleted data associated with query.'), 200)
         except Exception as ex:
             print(repr(ex))
