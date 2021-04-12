@@ -12,7 +12,7 @@ class CharacterDataScreen extends React.Component {
     this.handleCharNameChange = this.handleCharNameChange.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
   }
-  
+
   handleCharIDChange(e) {
     this.setState({char_id: e.target.value})
   }
@@ -63,14 +63,14 @@ class CharacterDataScreen extends React.Component {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           char_id: this.state.char_id,
           char_name: this.state.char_name
         })
     };
 
     console.log(requestOptions);
-    
+
     fetch('/characters/search', requestOptions);
   }
 
@@ -88,11 +88,13 @@ class CharacterDataScreen extends React.Component {
             <input
               type="text"
               value={this.state.char_id}
+              placeholder="Character ID"
               onChange={this.handleCharIDChange}
             />
-            <input 
+            <input
               type="text"
               value={this.state.char_name}
+              placeholder="Character Name"
               onChange={this.handleCharNameChange}
             />
             <button type="submit" onClick={this.stateButtonHandler}>Press here</button>

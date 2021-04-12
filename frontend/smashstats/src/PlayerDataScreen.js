@@ -63,12 +63,12 @@ class PlayerDataScreen extends React.Component {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           player_id: this.state.player_id,
           player_name: this.state.player_name
         })
     };
-    
+
     fetch('/players/search', requestOptions);
   }
 
@@ -85,11 +85,13 @@ class PlayerDataScreen extends React.Component {
             <p>Set the Player ID and name below:</p>
             <input
               type="text"
+              placeholder="Player ID"
               value={this.state.player_id}
               onChange={this.handlePlayerIDChange}
             />
-            <input 
+            <input
               type="text"
+              placeholder="Player Name"
               value={this.state.player_name}
               onChange={this.handlePlayerNameChange}
             />
@@ -118,10 +120,10 @@ class PlayerDataScreen extends React.Component {
           <button onClick={this.searchChangeHandler}>Search</button>
           <p id="p10"></p>
         </div>
-      </div>  
+      </div>
     );
   }
-  
+
 }
 
 export default PlayerDataScreen;

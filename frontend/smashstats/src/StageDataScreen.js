@@ -28,12 +28,12 @@ class StageDataScreen extends React.Component {
     // const requestOptions = {
     //     method: 'POST',
     //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ 
+    //     body: JSON.stringify({
     //       stage_id: this.state.stage_id,
     //       stage_name: this.state.stage_name
     //     })
     // };
-    
+
 
     // fetch('/stages/create', requestOptions)
     //     .then(response => response.json())
@@ -90,16 +90,16 @@ class StageDataScreen extends React.Component {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           stage_id: this.state.stage_id,
           stage_name: this.state.stage_name
         })
     };
-    
+
     fetch('/stages/search', requestOptions);
   }
 
-  render () { 
+  render () {
     return (
     <div>
         <p>Hello! </p>
@@ -113,10 +113,12 @@ class StageDataScreen extends React.Component {
             <input
               type="text"
               value={this.state.stage_id}
+              placeholder="Stage ID"
               onChange={this.handleStageIDChange}
             />
-            <input 
+            <input
               type="text"
+              placeholder="Stage Name"
               value={this.state.stage_name}
               onChange={this.handleStageNameChange}
             />
