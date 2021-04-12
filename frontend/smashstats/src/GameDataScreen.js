@@ -17,7 +17,6 @@ class GameDataScreen extends React.Component {
       set_id: ""
     };
     this.stateButtonHandler = this.stateButtonHandler.bind(this);
-    
     this.handleGameIDChange = this.handleGameIDChange.bind(this);
     this.handleWinnerIDChange = this.handleWinnerIDChange.bind(this);
     this.handleLoserIDChange = this.handleLoserIDChange.bind(this);
@@ -27,10 +26,13 @@ class GameDataScreen extends React.Component {
     this.handleLoserCharIDChange = this.handleLoserCharIDChange.bind(this);
     this.handleStageIDChange = this.handleStageIDChange.bind(this);
     this.handleSetIDChange = this.handleSetIDChange.bind(this);
+    this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
   stateButtonHandler(e) {
     e.preventDefault();
+    this.setEmptyToNull();
     document.getElementById("p1").innerHTML = "game_id entered: " + this.state.game_id;
     document.getElementById("p2").innerHTML = "winner_id entered: " + this.state.winner_id;
     document.getElementById("pp1").innerHTML = "loser_id entered: " + this.state.loser_id;
@@ -40,6 +42,36 @@ class GameDataScreen extends React.Component {
     document.getElementById("pp5").innerHTML = "loser_char_id entered: " + this.state.loser_char_id;
     document.getElementById("pp6").innerHTML = "stage_id entered: " + this.state.stage_id;
     document.getElementById("pp7").innerHTML = "set_id entered: " + this.state.set_id;
+  }
+
+  setEmptyToNull() {
+    if (this.state.game_id === "") {
+      this.setState({game_id: null});
+    }
+    if (this.state.winner_id === "") {
+      this.setState({winner_id: null});
+    }
+    if (this.state.loser_id === "") {
+      this.setState({loser_id: null});
+    }
+    if (this.state.winner_score === "") {
+      this.setState({winner_score: null});
+    }
+    if (this.state.loser_score === "") {
+      this.setState({loser_score: null});
+    }
+    if (this.state.winner_char_id === "") {
+      this.setState({winner_char_id: null});
+    }
+    if (this.state.loser_char_id === "") {
+      this.setState({loser_char_id: null});
+    }
+    if (this.state.stage_id === "") {
+      this.setState({stage_id: null});
+    }
+    if (this.state.set_id === "") {
+      this.setState({set_id: null});
+    }
   }
 
   handleGameIDChange(e) {
@@ -93,6 +125,33 @@ class GameDataScreen extends React.Component {
     document.getElementById("p8").innerHTML = "Delete pressed!";
   }
 
+  searchChangeHandler(e) {
+    e.preventDefault();
+    document.getElementById("p10").innerHTML = "Search pressed!";
+
+    this.setEmptyToNull()
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          game_id: this.state.game_id, 
+          winner_id: this.state.winner_id, 
+          loser_id: this.state.loser_id, 
+          winner_score: this.state.winner_score,
+          loser_score: this.state.loser_score,
+          winner_char_id: this.state.winner_char_id,
+          loser_char_id: this.state.loser_char_id,
+          stage_id: this.state.stage_id,
+          set_id: this.state.set_id
+        })
+    };
+    
+    fetch('/games/search', requestOptions);
+  }
+
   
   render () {
     return (
@@ -109,46 +168,55 @@ class GameDataScreen extends React.Component {
               type="text"
               value={this.state.game_id}
               onChange={this.handleGameIDChange}
+              placeholder="game_id"
             />
             <input 
               type="text"
               value={this.state.winner_id}
               onChange={this.handleWinnerIDChange}
+              placeholder="winner_id"
             />
             <input 
               type="text"
               value={this.state.loser_id}
               onChange={this.handleLoserIDChange}
+              placeholder="loser_id"
             />
             <input 
               type="text"
               value={this.state.winner_score}
               onChange={this.handleWinnerScoreChange}
+              placeholder="winner_score"
             />
             <input 
               type="text"
               value={this.state.loser_score}
               onChange={this.handleLoserScoreChange}
+              placeholder="loser_score"
             />
             <input 
               type="text"
               value={this.state.winner_char_id}
               onChange={this.handleWinnerCharIDChange}
+              placeholder="winner_char_id"
             />
             <input 
               type="text"
               value={this.state.loser_char_id}
               onChange={this.handleLoserCharIDChange}
+              placeholder="loser_char_id"
             />
             <input 
               type="text"
               value={this.state.stage_id}
               onChange={this.handleStageIDChange}
+              placeholder="stage_id"
             />
             <input 
               type="text"
               value={this.state.set_id}
               onChange={this.handleSetIDChange}
+              placeholder="set_id"
             />
             <button type="submit" onClick={this.stateButtonHandler}>Press here</button>
           </form>
@@ -176,6 +244,11 @@ class GameDataScreen extends React.Component {
           <p id="p7">Press this button to delete the corresponding stage ID from the database:</p>
           <button onClick={this.deleteChangeHandler}>Add</button>
           <p id="p8"></p>
+        </div>
+        <div id="searchDIV">
+          <p id="p9">Press this button search for data:</p>
+          <button onClick={this.searchChangeHandler}>Search</button>
+          <p id="p10"></p>
         </div>
     </div>
     );

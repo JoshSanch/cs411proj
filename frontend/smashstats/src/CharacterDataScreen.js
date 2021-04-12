@@ -10,8 +10,10 @@ class CharacterDataScreen extends React.Component {
     this.deleteChangeHandler = this.deleteChangeHandler.bind(this);
     this.handleCharIDChange = this.handleCharIDChange.bind(this);
     this.handleCharNameChange = this.handleCharNameChange.bind(this);
+    this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
-  
+
   handleCharIDChange(e) {
     this.setState({char_id: e.target.value})
   }
@@ -22,8 +24,18 @@ class CharacterDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
+    this.setEmptyToNull()
     document.getElementById("p1").innerHTML = "char_id entered: " + this.state.char_id;
     document.getElementById("p2").innerHTML = "char_name entered: " + this.state.char_name;
+  }
+
+  setEmptyToNull() {
+    if (this.state.char_id === "") {
+      this.setState({char_id: null});
+    }
+    if (this.state.char_name === "") {
+      this.setState({char_name: null});
+    }
   }
 
   updateChangeHandler(e) {
@@ -41,6 +53,27 @@ class CharacterDataScreen extends React.Component {
     document.getElementById("p8").innerHTML = "Delete pressed!";
   }
 
+  searchChangeHandler(e) {
+    e.preventDefault();
+    document.getElementById("p10").innerHTML = "Search pressed!";
+    this.setEmptyToNull()
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          char_id: this.state.char_id,
+          char_name: this.state.char_name
+        })
+    };
+
+    console.log(requestOptions);
+
+    fetch('/characters/search', requestOptions);
+  }
+
   render() {
       return (
       <div>
@@ -55,11 +88,13 @@ class CharacterDataScreen extends React.Component {
             <input
               type="text"
               value={this.state.char_id}
+              placeholder="Character ID"
               onChange={this.handleCharIDChange}
             />
-            <input 
+            <input
               type="text"
               value={this.state.char_name}
+              placeholder="Character Name"
               onChange={this.handleCharNameChange}
             />
             <button type="submit" onClick={this.stateButtonHandler}>Press here</button>
@@ -81,6 +116,11 @@ class CharacterDataScreen extends React.Component {
           <p id="p7">Press this button to delete the corresponding stage ID from the database:</p>
           <button onClick={this.deleteChangeHandler}>Add</button>
           <p id="p8"></p>
+        </div>
+        <div id="searchDIV">
+          <p id="p9">Press this button search for data:</p>
+          <button onClick={this.searchChangeHandler}>Search</button>
+          <p id="p10"></p>
         </div>
       </div>
     );

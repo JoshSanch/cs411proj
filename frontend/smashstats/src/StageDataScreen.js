@@ -11,33 +11,38 @@ class StageDataScreen extends React.Component {
     this.handleStageIDChange = this.handleStageIDChange.bind(this);
     this.handleStageNameChange = this.handleStageNameChange.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
   useEffect() {
     // Simple POST request with a JSON body using fetch. NEEDS TO BE WORKED ON
 
-    if (this.state.stage_id == "") {
-      this.setState({stage_id: null});
-    }
-    if (this.state.stage_name == "") {
-      this.setState({stage_name: null});
-    }
+    this.setEmptyToNull()
 
     console.log(this.state);
 
     // const requestOptions = {
     //     method: 'POST',
     //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ 
+    //     body: JSON.stringify({
     //       stage_id: this.state.stage_id,
     //       stage_name: this.state.stage_name
     //     })
     // };
-    
+
 
     // fetch('/stages/create', requestOptions)
     //     .then(response => response.json())
     //     .then(data => this.setState({ postId: data.id }));
+  }
+
+  setEmptyToNull() {
+    if (this.state.stage_id === "") {
+      this.setState({stage_id: null});
+    }
+    if (this.state.stage_name === "") {
+      this.setState({stage_name: null});
+    }
   }
 
   handleStageIDChange(e) {
@@ -50,14 +55,9 @@ class StageDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
+    this.setEmptyToNull()
     document.getElementById("p1").innerHTML = "stage_id entered: " + this.state.stage_id;
     document.getElementById("p2").innerHTML = "stage_name entered: " + this.state.stage_name;
-    if (this.state.stage_id == "") {
-      this.setState({stage_id: null});
-    }
-    if (this.state.stage_name == "") {
-      this.setState({stage_name: null});
-    }
   }
 
   updateChangeHandler(e) {
@@ -78,28 +78,23 @@ class StageDataScreen extends React.Component {
   searchChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
-    if (this.state.stage_id == "") {
-      this.setState({stage_id: null});
-    }
-    if (this.state.stage_name == "") {
-      this.setState({stage_name: null});
-    }
+    this.setEmptyToNull()
 
     console.log(this.state);
 
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           stage_id: this.state.stage_id,
           stage_name: this.state.stage_name
         })
     };
-    
+
     fetch('/stages/search', requestOptions);
   }
 
-  render () { 
+  render () {
     return (
     <div>
         <p>Hello! </p>
@@ -113,10 +108,12 @@ class StageDataScreen extends React.Component {
             <input
               type="text"
               value={this.state.stage_id}
+              placeholder="Stage ID"
               onChange={this.handleStageIDChange}
             />
-            <input 
+            <input
               type="text"
+              placeholder="Stage Name"
               value={this.state.stage_name}
               onChange={this.handleStageNameChange}
             />

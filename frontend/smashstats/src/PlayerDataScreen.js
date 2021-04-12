@@ -10,6 +10,8 @@ class PlayerDataScreen extends React.Component {
     this.deleteChangeHandler = this.deleteChangeHandler.bind(this);
     this.handlePlayerIDChange = this.handlePlayerIDChange.bind(this);
     this.handlePlayerNameChange = this.handlePlayerNameChange.bind(this);
+    this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
   handlePlayerIDChange(e) {
@@ -22,8 +24,18 @@ class PlayerDataScreen extends React.Component {
 
   stateButtonHandler(e) {
     e.preventDefault();
+    this.setEmptyToNull()
     document.getElementById("p1").innerHTML = "player_id entered: " + this.state.player_id;
     document.getElementById("p2").innerHTML = "player_name entered: " + this.state.player_name;
+  }
+
+  setEmptyToNull() {
+    if (this.state.player_id === "") {
+      this.setState({player_id: null});
+    }
+    if (this.state.player_name === "") {
+      this.setState({player_name: null});
+    }
   }
 
   updateChangeHandler(e) {
@@ -41,6 +53,25 @@ class PlayerDataScreen extends React.Component {
     document.getElementById("p8").innerHTML = "Delete pressed!";
   }
 
+  searchChangeHandler(e) {
+    e.preventDefault();
+    document.getElementById("p10").innerHTML = "Search pressed!";
+    this.setEmptyToNull()
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          player_id: this.state.player_id,
+          player_name: this.state.player_name
+        })
+    };
+
+    fetch('/players/search', requestOptions);
+  }
+
   render () {
     return (
       <div>
@@ -54,11 +85,13 @@ class PlayerDataScreen extends React.Component {
             <p>Set the Player ID and name below:</p>
             <input
               type="text"
+              placeholder="Player ID"
               value={this.state.player_id}
               onChange={this.handlePlayerIDChange}
             />
-            <input 
+            <input
               type="text"
+              placeholder="Player Name"
               value={this.state.player_name}
               onChange={this.handlePlayerNameChange}
             />
@@ -82,10 +115,15 @@ class PlayerDataScreen extends React.Component {
           <button onClick={this.deleteChangeHandler}>Add</button>
           <p id="p8"></p>
         </div>
-      </div>  
+        <div id="searchDIV">
+          <p id="p9">Press this button search for data:</p>
+          <button onClick={this.searchChangeHandler}>Search</button>
+          <p id="p10"></p>
+        </div>
+      </div>
     );
   }
-  
+
 }
 
 export default PlayerDataScreen;
