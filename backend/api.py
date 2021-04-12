@@ -152,14 +152,23 @@ def crud_handler(table_slug, operation):
                 return make_response('Error inserting player', 50)
 
     elif operation == 'delete':
-        if table_slug == 'players':
-            try:
-                player = Players(player_id=request.form.get('player_id'), player_name=request.form.get('player_name'))
-                db.session.add(player)
-                db.session.commit()
-                return make_response('Successfully inserted player', 50)
-            except:
-                return make_response('Error inserting player', 50)
+        query_data = json.loads(request.data)
+        query_data = {k: v for k, v in query_data.items() if v is not None}
+
+        class_map = {
+            "players": Players,
+            "stages": Stages,
+            "characters": Characters,
+            "sets": Sets,
+            "games": Games
+        }
+
+        try:
+            query_data = [getattr(class_map[table_slug], k).ilike(f"%{v}%") for k, v in query_data.items()]
+            result = class_map[table_slug].query.filter(*query_data).delete()
+            return make_response(jsonify(message='Successfully deleted data associated with query.'), 200)
+        except:
+            return make_response(jsonify(message='Error deleting data'), 500)
 
     return make_response(
         "I'm slugging!",
