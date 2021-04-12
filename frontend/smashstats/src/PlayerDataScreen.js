@@ -11,6 +11,9 @@ class PlayerDataScreen extends React.Component {
     this.handlePlayerIDChange = this.handlePlayerIDChange.bind(this);
     this.handlePlayerNameChange = this.handlePlayerNameChange.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.addChangeHandler = this.addChangeHandler.bind(this);
+    this.updateChangeHandler = this.updateChangeHandler.bind(this);
+    this.deleteChangeHandler = this.deleteChangeHandler.bind(this);
     this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
@@ -41,16 +44,58 @@ class PlayerDataScreen extends React.Component {
   updateChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p4").innerHTML = "Update pressed!"
+    this.setEmptyToNull()
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          player_id: this.state.player_id,
+          player_name: this.state.player_name
+        })
+    };
+
+    fetch('/players/update', requestOptions);
   }
 
   addChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p6").innerHTML = "Create pressed!";
+    this.setEmptyToNull()
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          player_id: this.state.player_id,
+          player_name: this.state.player_name
+        })
+    };
+
+    fetch('/players/create', requestOptions);
   }
 
   deleteChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p8").innerHTML = "Delete pressed!";
+    this.setEmptyToNull()
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          player_id: this.state.player_id,
+          player_name: this.state.player_name
+        })
+    };
+
+    fetch('/players/delete', requestOptions);
   }
 
   searchChangeHandler(e) {

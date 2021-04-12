@@ -5,10 +5,10 @@ class GameDataScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
-      game_id: "", 
-      winner_id: "", 
-      loser_id: "", 
+    this.state = {
+      game_id: "",
+      winner_id: "",
+      loser_id: "",
       winner_score: "",
       loser_score: "",
       winner_char_id: "",
@@ -27,6 +27,9 @@ class GameDataScreen extends React.Component {
     this.handleStageIDChange = this.handleStageIDChange.bind(this);
     this.handleSetIDChange = this.handleSetIDChange.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.updateChangeHandler = this.updateChangeHandler.bind(this);
+    this.addChangeHandler = this.addChangeHandler.bind(this);
+    this.deleteChangeHandler = this.deleteChangeHandler.bind(this);
     this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
@@ -112,17 +115,80 @@ class GameDataScreen extends React.Component {
 
   updateChangeHandler(e) {
     e.preventDefault();
-    document.getElementById("p4").innerHTML = "Update pressed!"
+    document.getElementById("p4").innerHTML = "Update pressed!";
+    this.setEmptyToNull();
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          game_id: this.state.game_id,
+          winner_id: this.state.winner_id,
+          loser_id: this.state.loser_id,
+          winner_score: this.state.winner_score,
+          loser_score: this.state.loser_score,
+          winner_char_id: this.state.winner_char_id,
+          loser_char_id: this.state.loser_char_id,
+          stage_id: this.state.stage_id,
+          set_id: this.state.set_id
+        })
+    };
+
+    fetch('/games/update', requestOptions);
   }
 
   addChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p6").innerHTML = "Create pressed!";
+    this.setEmptyToNull();
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          game_id: this.state.game_id,
+          winner_id: this.state.winner_id,
+          loser_id: this.state.loser_id,
+          winner_score: this.state.winner_score,
+          loser_score: this.state.loser_score,
+          winner_char_id: this.state.winner_char_id,
+          loser_char_id: this.state.loser_char_id,
+          stage_id: this.state.stage_id,
+          set_id: this.state.set_id
+        })
+    };
+
+    fetch('/games/create', requestOptions);
   }
 
   deleteChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p8").innerHTML = "Delete pressed!";
+    this.setEmptyToNull();
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          game_id: this.state.game_id,
+          winner_id: this.state.winner_id,
+          loser_id: this.state.loser_id,
+          winner_score: this.state.winner_score,
+          loser_score: this.state.loser_score,
+          winner_char_id: this.state.winner_char_id,
+          loser_char_id: this.state.loser_char_id,
+          stage_id: this.state.stage_id,
+          set_id: this.state.set_id
+        })
+    };
+
+    fetch('/games/delete', requestOptions);
   }
 
   searchChangeHandler(e) {
@@ -136,10 +202,10 @@ class GameDataScreen extends React.Component {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          game_id: this.state.game_id, 
-          winner_id: this.state.winner_id, 
-          loser_id: this.state.loser_id, 
+        body: JSON.stringify({
+          game_id: this.state.game_id,
+          winner_id: this.state.winner_id,
+          loser_id: this.state.loser_id,
           winner_score: this.state.winner_score,
           loser_score: this.state.loser_score,
           winner_char_id: this.state.winner_char_id,
@@ -148,11 +214,11 @@ class GameDataScreen extends React.Component {
           set_id: this.state.set_id
         })
     };
-    
+
     fetch('/games/search', requestOptions);
   }
 
-  
+
   render () {
     return (
     <div>
@@ -170,49 +236,49 @@ class GameDataScreen extends React.Component {
               onChange={this.handleGameIDChange}
               placeholder="game_id"
             />
-            <input 
+            <input
               type="text"
               value={this.state.winner_id}
               onChange={this.handleWinnerIDChange}
               placeholder="winner_id"
             />
-            <input 
+            <input
               type="text"
               value={this.state.loser_id}
               onChange={this.handleLoserIDChange}
               placeholder="loser_id"
             />
-            <input 
+            <input
               type="text"
               value={this.state.winner_score}
               onChange={this.handleWinnerScoreChange}
               placeholder="winner_score"
             />
-            <input 
+            <input
               type="text"
               value={this.state.loser_score}
               onChange={this.handleLoserScoreChange}
               placeholder="loser_score"
             />
-            <input 
+            <input
               type="text"
               value={this.state.winner_char_id}
               onChange={this.handleWinnerCharIDChange}
               placeholder="winner_char_id"
             />
-            <input 
+            <input
               type="text"
               value={this.state.loser_char_id}
               onChange={this.handleLoserCharIDChange}
               placeholder="loser_char_id"
             />
-            <input 
+            <input
               type="text"
               value={this.state.stage_id}
               onChange={this.handleStageIDChange}
               placeholder="stage_id"
             />
-            <input 
+            <input
               type="text"
               value={this.state.set_id}
               onChange={this.handleSetIDChange}

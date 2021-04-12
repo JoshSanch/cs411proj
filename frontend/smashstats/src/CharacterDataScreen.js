@@ -11,6 +11,8 @@ class CharacterDataScreen extends React.Component {
     this.handleCharIDChange = this.handleCharIDChange.bind(this);
     this.handleCharNameChange = this.handleCharNameChange.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.updateChangeHandler = this.updateChangeHandler.bind(this);
+    this.addChangeHandler = this.addChangeHandler.bind(this);
     this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
@@ -40,17 +42,66 @@ class CharacterDataScreen extends React.Component {
 
   updateChangeHandler(e) {
     e.preventDefault();
-    document.getElementById("p4").innerHTML = "Update pressed!"
+    document.getElementById("p4").innerHTML = "Update pressed!";
+    this.setEmptyToNull();
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          char_id: this.state.char_id,
+          char_name: this.state.char_name
+        })
+    };
+
+    console.log(requestOptions);
+
+    fetch('/characters/update', requestOptions);
+
   }
 
   addChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p6").innerHTML = "Create pressed!";
+    this.setEmptyToNull();
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          char_id: this.state.char_id,
+          char_name: this.state.char_name
+        })
+    };
+
+    console.log(requestOptions);
+
+    fetch('/characters/create', requestOptions);
   }
 
   deleteChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p8").innerHTML = "Delete pressed!";
+    this.setEmptyToNull();
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          char_id: this.state.char_id,
+          char_name: this.state.char_name
+        })
+    };
+
+    console.log(requestOptions);
+
+    fetch('/characters/delete', requestOptions);
   }
 
   searchChangeHandler(e) {
@@ -114,7 +165,7 @@ class CharacterDataScreen extends React.Component {
         </div>
         <div id="deleteDIV">
           <p id="p7">Press this button to delete the corresponding stage ID from the database:</p>
-          <button onClick={this.deleteChangeHandler}>Add</button>
+          <button onClick={this.deleteChangeHandler}>Delete</button>
           <p id="p8"></p>
         </div>
         <div id="searchDIV">

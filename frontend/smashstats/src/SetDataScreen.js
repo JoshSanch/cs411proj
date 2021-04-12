@@ -11,6 +11,10 @@ class PlayerDataScreen extends React.Component {
     this.handleWinnerIDChange = this.handleWinnerIDChange.bind(this);
     this.handleLoserIDChange = this.handleLoserIDChange.bind(this);
     this.searchChangeHandler = this.searchChangeHandler.bind(this);
+    this.addChangeHandler = this.addChangeHandler.bind(this);
+    this.updateChangeHandler = this.updateChangeHandler.bind(this);
+    this.deleteChangeHandler = this.deleteChangeHandler.bind(this);
+
     this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
@@ -49,16 +53,61 @@ class PlayerDataScreen extends React.Component {
   updateChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p4").innerHTML = "Update pressed!"
+    this.setEmptyToNull()
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          set_id: this.state.set_id,
+          winner_id: this.state.winner_id,
+          loser_id: this.state.loser_id
+        })
+    };
+
+    fetch('/sets/update', requestOptions);
   }
 
   addChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p6").innerHTML = "Create pressed!";
+    this.setEmptyToNull()
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          set_id: this.state.set_id,
+          winner_id: this.state.winner_id,
+          loser_id: this.state.loser_id
+        })
+    };
+
+    fetch('/sets/create', requestOptions);
   }
 
   deleteChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p8").innerHTML = "Delete pressed!";
+    this.setEmptyToNull()
+
+    console.log(this.state);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          set_id: this.state.set_id,
+          winner_id: this.state.winner_id,
+          loser_id: this.state.loser_id
+        })
+    };
+
+    fetch('/sets/delete', requestOptions);
   }
 
   searchChangeHandler(e) {
@@ -71,13 +120,13 @@ class PlayerDataScreen extends React.Component {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           set_id: this.state.set_id,
           winner_id: this.state.winner_id,
           loser_id: this.state.loser_id
         })
     };
-    
+
     fetch('/sets/search', requestOptions);
   }
 
@@ -98,13 +147,13 @@ class PlayerDataScreen extends React.Component {
               onChange={this.handleSetIDChange}
               placeholder="set_id"
             />
-            <input 
+            <input
               type="text"
               value={this.state.winner_id}
               onChange={this.handleWinnerIDChange}
               placeholder="winner_id"
             />
-            <input 
+            <input
               type="text"
               value={this.state.loser_id}
               onChange={this.handleLoserIDChange}
@@ -139,7 +188,7 @@ class PlayerDataScreen extends React.Component {
       </div>
     );
   }
-  
+
 }
 
 export default PlayerDataScreen;
