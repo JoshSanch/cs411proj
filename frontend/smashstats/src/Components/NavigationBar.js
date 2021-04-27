@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navbar, Nav} from 'react-bootstrap';
-import { NavLink } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter as Router } from "react-router-dom";
 class NavigationBar extends React.Component {
@@ -10,7 +9,7 @@ class NavigationBar extends React.Component {
             <div>
             <Router>
                 <Navbar collapseOnSelect expand="lg" id="color-nav" fixed="top" variant="dark" bg="dark">
-                    <Navbar.Brand as={NavLink} to="Home" id="color-nav-logo"><i className="fas fa-running"></i> Team 86</Navbar.Brand>
+                    <Navbar.Brand to="Home" id="color-nav-logo"><i className="fas fa-running"></i> Team 86</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto" id = "color-nav-links">
