@@ -22,6 +22,7 @@ class NavigationBar extends React.Component {
                             <Link className="nav-link" to="/">Stage Data</Link> */}
 
                             <Nav.Link href="Home">Home</Nav.Link>
+                            <Nav.Link href="Best">Quick Facts</Nav.Link>
                             <Nav.Link href="Sets">Set Data</Nav.Link>
                             <Nav.Link href="Games">Game Data</Nav.Link>
                             <Nav.Link href="Players">Player Data</Nav.Link>

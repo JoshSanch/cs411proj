@@ -8,7 +8,7 @@ import GameDataScreen from './GameDataScreen';
 import PlayerDataScreen from './PlayerDataScreen';
 import CharacterDataScreen from './CharacterDataScreen';
 import StageDataScreen from './StageDataScreen';
-
+import BestInfo from "./Best.js";
 
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
           <NavigationBar/>
           <br/><br/><br/><br/>
           <Route path="/Home" component={HomeScreen}/>
+          <Route path="/Best" component={BestInfo}/>
           <Route path="/Sets" component={SetDataScreen}/>
           <Route path="/Games" component={GameDataScreen}/>
           <Route path="/Players" component={PlayerDataScreen}/>

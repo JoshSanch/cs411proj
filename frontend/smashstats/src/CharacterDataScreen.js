@@ -142,12 +142,6 @@ class CharacterDataScreen extends React.Component {
       }
       ];
       const listItem = document.getElementById("searchResultsDIV");
-      // newTableData = [
-      //   {
-      //     char_id: 1,
-      //     char_name: 2
-      //   }
-      // ]
       const newTable = (
         <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
       )
