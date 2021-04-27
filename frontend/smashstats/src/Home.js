@@ -112,12 +112,12 @@ function HomeScreen() {
         <p>Hello! </p>
         <p></p>
         <p>This is the home screen</p>
-        {/* <div><pre>{JSON.stringify(topTemp, null, 2) }</pre></div> */}
+        <p>Here are some buttons that can show you some statistics from competition games for the game Super Smash Brothers Ultimate for the Nintendo Switch</p>
         <div id="queryButtons">
-          <button onClick={queryButton1} >This button shows the first query</button>
-          <button onClick={queryButton2} >This button shows the second query</button>
-          <button onClick={queryButton3} >This button shows the third query</button>
-          <button onClick={queryButton4} >This button shows the fourth query</button>
+          <button onClick={queryButton1} >Show top players</button>
+          <button onClick={queryButton2} >Show # of games per stage</button>
+          <button onClick={queryButton3} >Show character win rates</button>
+          <button onClick={queryButton4} >Show # of wins per character per stage</button>
         </div>
         <div id="topPlayerDIV" style={{display: "none"}}>
           <p>Data on top players, the number of games played, and win rate:</p>
