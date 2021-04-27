@@ -119,27 +119,26 @@ class StageDataScreen extends React.Component {
     var newTableData;
     fetch('/stages/search', requestOptions)
         .then(res => res.json())
-        .then(data => newTableData = data);
+        .then(data => newTableData = data)
+        .then(data => this.updateTable(newTableData));
 
-    // waits for the API then sets the table as needed
-    setTimeout(() => {
-      const newTableCols = [{
-        dataField: 'stage_id',
-        text: 'Stage Id'
-      }, {
-        dataField: 'stage_name',
-        text: 'Stage Name'
-      }
-      ];
-      const listItem = document.getElementById("searchResultsDIV");
-      const newTable = (
-        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
-      )
+  }
 
-      ReactDOM.render(newTable , listItem)
+  updateTable(newTableData) {
+    const newTableCols = [{
+      dataField: 'stage_id',
+      text: 'Stage Id'
+    }, {
+      dataField: 'stage_name',
+      text: 'Stage Name'
+    }
+    ];
+    const listItem = document.getElementById("searchResultsDIV");
+    const newTable = (
+      <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
+    )
 
-    }, 2000);
-
+    ReactDOM.render(newTable , listItem)
   }
 
   render () {

@@ -133,30 +133,28 @@ class PlayerDataScreen extends React.Component {
     var newTableData;
     fetch('/sets/search', requestOptions)
         .then(res => res.json())
-        .then(data => newTableData = data);
+        .then(data => newTableData = data)
+        .then(data => this.updateTable(newTableData));
+  }
 
-    // waits for the API then sets the table as needed
-    setTimeout(() => {
-      console.log(newTableData);
-      const newTableCols = [{
-        dataField: 'set_id',
-        text: 'Set ID'
-      }, {
-        dataField: 'set_winner_id',
-        text: 'Winner ID'
-      }, {
-        dataField: 'set_loser_id',
-        text: 'Loser ID'
-      }
-      ];
-      const listItem = document.getElementById("searchResultsDIV");
-      const newTable = (
-        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
-      )
+  updateTable(newTableData) {
+    const newTableCols = [{
+      dataField: 'set_id',
+      text: 'Set ID'
+    }, {
+      dataField: 'set_winner_id',
+      text: 'Winner ID'
+    }, {
+      dataField: 'set_loser_id',
+      text: 'Loser ID'
+    }
+    ];
+    const listItem = document.getElementById("searchResultsDIV");
+    const newTable = (
+      <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
+    );
 
-      ReactDOM.render(newTable , listItem)
-
-    }, 5000);
+    ReactDOM.render(newTable , listItem);
   }
 
   render () {

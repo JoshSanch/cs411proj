@@ -128,27 +128,28 @@ class CharacterDataScreen extends React.Component {
     var newTableData;
     fetch('/characters/search', requestOptions)
         .then(res => res.json())
-        .then(data => newTableData = data);
+        .then(data => newTableData = data)
+        .then(data => this.updateTable(newTableData));
 
-    // waits for the API then sets the table as needed
-    setTimeout(() => {
-      console.log(newTableData);
-      const newTableCols = [{
-        dataField: 'char_id',
-        text: 'Character ID'
-      }, {
-        dataField: 'char_name',
-        text: 'Character Name'
-      }
-      ];
-      const listItem = document.getElementById("searchResultsDIV");
-      const newTable = (
-        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
-      )
+  }
 
-      ReactDOM.render(newTable , listItem)
+  updateTable(newTableData) {
+    console.log("updateTable function used!");
+    const newTableCols = [{
+      dataField: 'char_id',
+      text: 'Character ID'
+    }, {
+      dataField: 'char_name',
+      text: 'Character Name'
+    }
+    ];
 
-    }, 2000);
+    const listItem = document.getElementById("searchResultsDIV");
+    const newTable = (
+      <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
+    );
+    ReactDOM.render(newTable , listItem);
+
   }
 
   render() {

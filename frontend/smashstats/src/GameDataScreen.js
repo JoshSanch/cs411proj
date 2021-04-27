@@ -221,65 +221,47 @@ class GameDataScreen extends React.Component {
     var newTableData;
     fetch('/games/search', requestOptions)
         .then(res => res.json())
-        .then(data => newTableData = data);
+        .then(data => newTableData = data)
+        .then(data => this.updateTable(newTableData));
 
     // waits for the API then sets the table as needed
+  }
 
-
-
-
-    setTimeout(() => {
-      console.log(newTableData);
-      const newTableCols = [{
-        dataField: 'game_id',
-        text: 'Game Id'
-      }, {
-        dataField: 'winner_id',
-        text: 'Winner ID'
-      }, {
-        dataField: 'loser_id',
-        text: 'Loser ID'
-      }, {
-        dataField: 'winner_score',
-        text: 'Winner Score'
-      }, {
-        dataField: 'loser_score',
-        text: 'Loser Score'
-      }, {
-        dataField: 'winner_char_id',
-        text: 'Winner Character ID'
-      }, {
-        dataField: 'loser_char_id',
-        text: 'Loser Character ID'
-      }, {
-        dataField: 'stage_id',
-        text: 'Stage ID'
-      }, {
-        dataField: 'set_id',
-        text: 'Set ID'
-      },
-      ];
-      const listItem = document.getElementById("searchResultsDIV");
-      // newTableData = [
-      //   {
-      //     game_id: 1,
-      //     winner_id: 2,
-      //     loser_id: 3,
-      //     winner_score: 4,
-      //     loser_score: 5,
-      //     winner_char_id: 6,
-      //     loser_char_id: 7,
-      //     stage_id: 8,
-      //     set_id: 9
-      //   }
-      // ]
-      const newTable = (
-        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
-      )
-
-      ReactDOM.render(newTable , listItem)
-
-    }, 2000);
+  updateTable(newTableData) {
+    const newTableCols = [{
+      dataField: 'game_id',
+      text: 'Game Id'
+    }, {
+      dataField: 'winner_id',
+      text: 'Winner ID'
+    }, {
+      dataField: 'loser_id',
+      text: 'Loser ID'
+    }, {
+      dataField: 'winner_score',
+      text: 'Winner Score'
+    }, {
+      dataField: 'loser_score',
+      text: 'Loser Score'
+    }, {
+      dataField: 'winner_char_id',
+      text: 'Winner Character ID'
+    }, {
+      dataField: 'loser_char_id',
+      text: 'Loser Character ID'
+    }, {
+      dataField: 'stage_id',
+      text: 'Stage ID'
+    }, {
+      dataField: 'set_id',
+      text: 'Set ID'
+    },
+    ];
+    const listItem = document.getElementById("searchResultsDIV");
+    const newTable = (
+      <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
+    );
+    ReactDOM.render(newTable , listItem);
   }
 
 
