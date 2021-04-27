@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ReactDOM from 'react-dom'
 import paginationFactory from 'react-bootstrap-table2-paginator';
