@@ -318,7 +318,7 @@ class GameDataScreen extends React.Component {
       returnText.style.color = "red";
       return;
     }
-    
+
     const listItem = document.getElementById("searchResultsDIV");
     const newTable = (
       <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
@@ -433,6 +433,16 @@ class GameDataScreen extends React.Component {
           <p id="pp5"></p>
           <p id="pp6"></p>
           <p id="pp7"></p>
+        </div>
+        <div>
+          <p>Set a password for updating, creating, and deleting from the database here:</p>
+          <form>
+            <input
+              type="password"
+              placeholder="Password"
+              id="pwbox"
+            />
+          </form>
         </div>
         <div id="updateDIV">
           <p id="p3">Press this button to update the corresponding stage ID in the database:</p>

@@ -157,6 +157,8 @@ class CharacterDataScreen extends React.Component {
     document.getElementById("p10").innerHTML = "Search pressed!";
     this.setEmptyToNull();
 
+    console.log(document.getElementById("pwbox").value);
+
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -253,6 +255,16 @@ class CharacterDataScreen extends React.Component {
           </form>
           <p id="p1"></p>
           <p id="p2"></p>
+        </div>
+        <div>
+          <p>Set a password for updating, creating, and deleting from the database here:</p>
+          <form>
+            <input
+              type="password"
+              placeholder="Password"
+              id="pwbox"
+            />
+          </form>
         </div>
         <div id="updateDIV">
           <p id="p3">Press this button to update the corresponding stage ID in the database:</p>

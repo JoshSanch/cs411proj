@@ -268,6 +268,16 @@ class PlayerDataScreen extends React.Component {
           <p id="p2"></p>
           <p id="pp2"></p>
         </div>
+        <div>
+          <p>Set a password for updating, creating, and deleting from the database here:</p>
+          <form>
+            <input
+              type="password"
+              placeholder="Password"
+              id="pwbox"
+            />
+          </form>
+        </div>
         <div id="updateDIV">
           <p id="p3">Press this button to update the corresponding stage ID in the database:</p>
           <button onClick={this.updateChangeHandler}>Update</button>
