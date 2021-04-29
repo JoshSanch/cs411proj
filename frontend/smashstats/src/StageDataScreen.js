@@ -63,7 +63,22 @@ class StageDataScreen extends React.Component {
       })
     }
 
-    fetch('/stages/update', requestOptions);
+    fetch('/stages/update', requestOptions)
+    .then(function(response) {
+      var textData = document.getElementById("p4");
+      switch (response.status) {
+        case (200):
+          textData.innerHTML = "Update performed successfully!";
+          break;
+        case (401):
+          textData.innerHTML = "Incorrect Password";
+          textData.style.color = "red";
+          break;
+        default:
+          textData.innerHTML = "An unexpected error occurred"
+          textData.style.color = "red";
+      }
+    })
   }
 
   addChangeHandler(e) {
@@ -80,7 +95,22 @@ class StageDataScreen extends React.Component {
       })
     }
 
-    fetch('/stages/create', requestOptions);
+    fetch('/stages/create', requestOptions)
+    .then(function(response) {
+      var textData = document.getElementById("p6");
+      switch (response.status) {
+        case (200):
+          textData.innerHTML = "Add performed successfully!";
+          break;
+        case (401):
+          textData.innerHTML = "Incorrect Password";
+          textData.style.color = "red";
+          break;
+        default:
+          textData.innerHTML = "An unexpected error occurred"
+          textData.style.color = "red";
+      }
+    })
   }
 
   deleteChangeHandler(e) {
@@ -97,7 +127,22 @@ class StageDataScreen extends React.Component {
       })
     }
 
-    fetch('/stages/delete', requestOptions);
+    fetch('/stages/delete', requestOptions)
+    .then(function(response) {
+      var textData = document.getElementById("p8");
+      switch (response.status) {
+        case (200):
+          textData.innerHTML = "Delete performed successfully!";
+          break;
+        case (401):
+          textData.innerHTML = "Incorrect Password";
+          textData.style.color = "red";
+          break;
+        default:
+          textData.innerHTML = "An unexpected error occurred"
+          textData.style.color = "red";
+      }
+    })
   }
 
   searchChangeHandler(e) {
@@ -117,14 +162,18 @@ class StageDataScreen extends React.Component {
     };
 
     var newTableData;
+    var responseCode;
     fetch('/stages/search', requestOptions)
-        .then(res => res.json())
+        .then(function(response){
+          responseCode = response.status
+          return response.json()
+        })
         .then(data => newTableData = data)
-        .then(data => this.updateTable(newTableData));
+        .then(data => this.updateTable(newTableData, responseCode));
 
   }
 
-  updateTable(newTableData) {
+  updateTable(newTableData, responseCode) {
     const newTableCols = [{
       dataField: 'stage_id',
       text: 'Stage Id'
@@ -133,6 +182,20 @@ class StageDataScreen extends React.Component {
       text: 'Stage Name'
     }
     ];
+    
+    console.log(responseCode);
+    if (responseCode === 401) {
+      var returnText = document.getElementById("p10")
+      returnText.innerText = "Incorrect password";
+      returnText.style.color = "red";
+      return;
+    } else if (responseCode !== 200) {
+      var returnText = document.getElementById("p10")
+      returnText.innerText = "An unexpected error occurred";
+      returnText.style.color = "red";
+      return;
+    }
+
     const listItem = document.getElementById("searchResultsDIV");
     const newTable = (
       <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />

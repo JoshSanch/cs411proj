@@ -29,16 +29,20 @@ class BestInfo extends React.Component {
 
         console.log(requestOptions);
         // var newTableData;
+        // var responseCode;
         // fetch('/whatever/', requestOptions)
-        //     .then(res => res.json())
+        //      .then(function(response){
+        //          responseCode = response.status
+        //          return response.json()
+        //      })
         //     .then(data => newTableData = data)
-        //     .then(data => updateTable(newTableData));
+        //     .then(data => updateTable(newTableData, responseCode));
 
         // waits for the API then sets the table as needed
         
     }
 
-    updateTable(newTableData) {
+    updateTable(newTableData, responseCode) {
         const newTableCols = [{
             dataField: 'best_player_id',
             text: 'Top player ID'
@@ -50,6 +54,19 @@ class BestInfo extends React.Component {
             text: 'Worst matchup (for player)'
         }
         ];
+
+        if (responseCode === 401) {
+            var returnText = document.getElementById("p10")
+            returnText.innerText = "Incorrect password";
+            returnText.style.color = "red";
+            return;
+          } else if (responseCode !== 200) {
+            var returnText = document.getElementById("p10")
+            returnText.innerText = "An unexpected error occurred";
+            returnText.style.color = "red";
+            return;
+          }
+
         const listItem = document.getElementById("searchResultsDIV");
         const newTable = (
         <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />

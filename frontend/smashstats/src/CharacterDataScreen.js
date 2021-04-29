@@ -61,7 +61,22 @@ class CharacterDataScreen extends React.Component {
 
     console.log(requestOptions);
 
-    fetch('/characters/update', requestOptions);
+    fetch('/characters/update', requestOptions)
+    .then(function(response) {
+      var textData = document.getElementById("p4");
+      switch (response.status) {
+        case (200):
+          textData.innerHTML = "Update performed successfully!";
+          break;
+        case (401):
+          textData.innerHTML = "Incorrect Password";
+          textData.style.color = "red";
+          break;
+        default:
+          textData.innerHTML = "An unexpected error occurred"
+          textData.style.color = "red";
+      }
+    })
 
   }
 
@@ -83,7 +98,22 @@ class CharacterDataScreen extends React.Component {
 
     console.log(requestOptions);
 
-    fetch('/characters/create', requestOptions);
+    fetch('/characters/create', requestOptions)
+    .then(function(response) {
+      var textData = document.getElementById("p6");
+      switch (response.status) {
+        case (200):
+          textData.innerHTML = "Add performed successfully!";
+          break;
+        case (401):
+          textData.innerHTML = "Incorrect Password";
+          textData.style.color = "red";
+          break;
+        default:
+          textData.innerHTML = "An unexpected error occurred"
+          textData.style.color = "red";
+      }
+    })
   }
 
   deleteChangeHandler(e) {
@@ -104,15 +134,28 @@ class CharacterDataScreen extends React.Component {
 
     console.log(requestOptions);
 
-    fetch('/characters/delete', requestOptions);
+    fetch('/characters/delete', requestOptions)
+    .then(function(response) {
+      var textData = document.getElementById("p8");
+      switch (response.status) {
+        case (200):
+          textData.innerHTML = "Delete performed successfully!";
+          break;
+        case (401):
+          textData.innerHTML = "Incorrect Password";
+          textData.style.color = "red";
+          break;
+        default:
+          textData.innerHTML = "An unexpected error occurred"
+          textData.style.color = "red";
+      }
+    })
   }
 
   searchChangeHandler(e) {
     e.preventDefault();
     document.getElementById("p10").innerHTML = "Search pressed!";
-    this.setEmptyToNull()
-
-    console.log(this.state);
+    this.setEmptyToNull();
 
     const requestOptions = {
         method: 'POST',
@@ -123,17 +166,24 @@ class CharacterDataScreen extends React.Component {
         })
     };
 
-    console.log(requestOptions);
-
     var newTableData;
+    var responseCode;
+    // fetch('/characters/search', requestOptions)
+    //     .then(res => res.json())
+    //     .then(data => newTableData = data)
+    //     .then(data => this.updateTable(newTableData, data));
+    
     fetch('/characters/search', requestOptions)
-        .then(res => res.json())
+        .then(function(response){
+          responseCode = response.status
+          return response.json()
+        })
         .then(data => newTableData = data)
-        .then(data => this.updateTable(newTableData));
+        .then(data => this.updateTable(newTableData, responseCode));
 
   }
 
-  updateTable(newTableData) {
+  updateTable(newTableData, responseCode) {
     console.log("updateTable function used!");
     const newTableCols = [{
       dataField: 'char_id',
@@ -143,6 +193,21 @@ class CharacterDataScreen extends React.Component {
       text: 'Character Name'
     }
     ];
+
+    if (responseCode === 401) {
+      var returnText = document.getElementById("p10")
+      returnText.innerText = "Incorrect password";
+      returnText.style.color = "red";
+      return;
+    } else if (responseCode !== 200) {
+      var returnText = document.getElementById("p10")
+      returnText.innerText = "An unexpected error occurred";
+      returnText.style.color = "red";
+      return;
+    }
+
+    console.log(newTableData);
+    console.log(responseCode);
 
     const listItem = document.getElementById("searchResultsDIV");
     const newTable = (
