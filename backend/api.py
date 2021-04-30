@@ -232,3 +232,13 @@ def crud_handler(table_slug, operation):
         "I'm slugging!",
         418
     )
+
+
+@app.route('/stored_proc', methods=["GET","POST"])
+def exec_stored_procedure():
+    try:
+        query_data = json.loads(request.data)
+        results = db.engine.execute('getBestPlayerStats ?', [characterName])
+        return make_response(jsonify({'result': [dict(row) for row in results]}), 200)
+    except:
+        return make_response(jsonify(message='Error inserting player'), 500)
