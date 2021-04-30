@@ -59,7 +59,8 @@ class StageDataScreen extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         stage_id: this.state.stage_id,
-        stage_name: this.state.stage_name
+        stage_name: this.state.stage_name,
+        password: document.getElementById("pwbox").value
       })
     }
 
@@ -91,7 +92,8 @@ class StageDataScreen extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         stage_id: this.state.stage_id,
-        stage_name: this.state.stage_name
+        stage_name: this.state.stage_name,
+        password: document.getElementById("pwbox").value
       })
     }
 
@@ -123,7 +125,8 @@ class StageDataScreen extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         stage_id: this.state.stage_id,
-        stage_name: this.state.stage_name
+        stage_name: this.state.stage_name,
+        password: document.getElementById("pwbox").value
       })
     }
 
@@ -157,7 +160,8 @@ class StageDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           stage_id: this.state.stage_id,
-          stage_name: this.state.stage_name
+          stage_name: this.state.stage_name,
+          password: document.getElementById("pwbox").value
         })
     };
 
