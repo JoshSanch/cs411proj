@@ -229,23 +229,12 @@ def crud_handler(table_slug, operation):
 
 
 
-@app.route('/stored_proc', methods=["GET","POST"])
+@app.route('/stored_proc', methods=["GET", "POST"])
 def exec_stored_procedure():
     try:
         query_data = json.loads(request.data)
-        # results = db.session.execute('CALL getBestPlayerStats(?)', [query_data['characterName']])
-        # .engine.raw_connection()
-        results = db.session.execute('call getBestPlayerStats ? ', (query_data['characterName']))
-
-        # parameterIn = query_data['characterName']
-        # parameterOut = "@parameterOut"
-        
-        # print("checkpoint 0")
-        # connection = db.engine.raw_connection()
-        # print("checkpoint 1")
-        # cursor = connection.cursor()
-        # cursor.callproc("getBestPlayerStats", [parameterIn])
-        # results = cursor.fetchall()
+        print([query_data['characterName']])
+        results = db.session.execute("CALL getBestPlayerStats('" + query_data['characterName'] + "')")
         return make_response(jsonify({'result': [dict(row) for row in results]}), 200)
     except Exception as ex:
         print(repr(ex))
