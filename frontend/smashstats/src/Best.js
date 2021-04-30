@@ -43,6 +43,7 @@ class BestInfo extends React.Component {
     }
 
     updateTable(newTableData, responseCode) {
+        console.log("updatema")
         const newTableCols = [{
             dataField: 'best_player_id',
             text: 'Top player ID'
@@ -54,6 +55,9 @@ class BestInfo extends React.Component {
             text: 'Worst matchup (for this player)'
         }
         ];
+
+        newTableData = newTableData["result"]
+        console.log(newTableData)
 
         if (responseCode === 401) {
             var returnText = document.getElementById("p1")
@@ -69,7 +73,7 @@ class BestInfo extends React.Component {
 
         const listItem = document.getElementById("searchResultsDIV");
         const newTable = (
-        <BootstrapTable id="searchResultsTable" keyField="stage_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
+        <BootstrapTable id="searchResultsTable" keyField="best_player_id" data={newTableData} columns={newTableCols} pagination={ paginationFactory() } />
         );
 
         ReactDOM.render(newTable , listItem);
