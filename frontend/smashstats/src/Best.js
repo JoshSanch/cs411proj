@@ -20,7 +20,7 @@ class BestInfo extends React.Component {
         console.log("Character chosen: " , characterChosen);
 
         const requestOptions = {
-            method: 'POST',
+            method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               characterName: characterChosen
