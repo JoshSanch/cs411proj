@@ -202,6 +202,8 @@ def crud_handler(table_slug, operation):
 
     elif operation == 'delete':
         query_data = {k: v for k, v in query_data.items() if v is not None}
+        if not query_data:
+            return make_response(jsonify(message='No attribute data specified'), 400)
 
         class_map = {
             "players": Players,
