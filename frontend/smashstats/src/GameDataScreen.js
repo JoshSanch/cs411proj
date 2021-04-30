@@ -135,7 +135,8 @@ class GameDataScreen extends React.Component {
           winner_char_id: this.state.winner_char_id,
           loser_char_id: this.state.loser_char_id,
           stage_id: this.state.stage_id,
-          set_id: this.state.set_id
+          set_id: this.state.set_id,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -176,7 +177,8 @@ class GameDataScreen extends React.Component {
           winner_char_id: this.state.winner_char_id,
           loser_char_id: this.state.loser_char_id,
           stage_id: this.state.stage_id,
-          set_id: this.state.set_id
+          set_id: this.state.set_id,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -217,7 +219,8 @@ class GameDataScreen extends React.Component {
           winner_char_id: this.state.winner_char_id,
           loser_char_id: this.state.loser_char_id,
           stage_id: this.state.stage_id,
-          set_id: this.state.set_id
+          set_id: this.state.set_id,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -259,7 +262,8 @@ class GameDataScreen extends React.Component {
           winner_char_id: this.state.winner_char_id,
           loser_char_id: this.state.loser_char_id,
           stage_id: this.state.stage_id,
-          set_id: this.state.set_id
+          set_id: this.state.set_id,
+          password: document.getElementById("pwbox").value
         })
     };
 

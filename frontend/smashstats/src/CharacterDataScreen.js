@@ -55,7 +55,8 @@ class CharacterDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           char_id: this.state.char_id,
-          char_name: this.state.char_name
+          char_name: this.state.char_name,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -92,7 +93,8 @@ class CharacterDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           char_id: this.state.char_id,
-          char_name: this.state.char_name
+          char_name: this.state.char_name,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -128,7 +130,8 @@ class CharacterDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           char_id: this.state.char_id,
-          char_name: this.state.char_name
+          char_name: this.state.char_name,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -164,7 +167,8 @@ class CharacterDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           char_id: this.state.char_id,
-          char_name: this.state.char_name
+          char_name: this.state.char_name,
+          password: document.getElementById("pwbox").value
         })
     };
 

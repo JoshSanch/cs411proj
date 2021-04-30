@@ -66,7 +66,8 @@ class PlayerDataScreen extends React.Component {
         body: JSON.stringify({
           set_id: this.state.set_id,
           set_winner_id: this.state.set_winner_id,
-          set_loser_id: this.state.set_loser_id
+          set_loser_id: this.state.set_loser_id,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -101,7 +102,8 @@ class PlayerDataScreen extends React.Component {
         body: JSON.stringify({
           set_id: this.state.set_id,
           set_winner_id: this.state.set_winner_id,
-          set_loser_id: this.state.set_loser_id
+          set_loser_id: this.state.set_loser_id,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -136,7 +138,8 @@ class PlayerDataScreen extends React.Component {
         body: JSON.stringify({
           set_id: this.state.set_id,
           set_winner_id: this.state.set_winner_id,
-          set_loser_id: this.state.set_loser_id
+          set_loser_id: this.state.set_loser_id,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -171,7 +174,8 @@ class PlayerDataScreen extends React.Component {
         body: JSON.stringify({
           set_id: this.state.set_id,
           set_winner_id: this.state.set_winner_id,
-          set_loser_id: this.state.set_loser_id
+          set_loser_id: this.state.set_loser_id,
+          password: document.getElementById("pwbox").value
         })
     };
 

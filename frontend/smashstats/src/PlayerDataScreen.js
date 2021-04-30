@@ -57,7 +57,8 @@ class PlayerDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           player_id: this.state.player_id,
-          player_name: this.state.player_name
+          player_name: this.state.player_name,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -91,7 +92,8 @@ class PlayerDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           player_id: this.state.player_id,
-          player_name: this.state.player_name
+          player_name: this.state.player_name,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -125,7 +127,8 @@ class PlayerDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           player_id: this.state.player_id,
-          player_name: this.state.player_name
+          player_name: this.state.player_name,
+          password: document.getElementById("pwbox").value
         })
     };
 
@@ -159,7 +162,8 @@ class PlayerDataScreen extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           player_id: this.state.player_id,
-          player_name: this.state.player_name
+          player_name: this.state.player_name,
+          password: document.getElementById("pwbox").value
         })
     };
 
