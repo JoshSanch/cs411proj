@@ -52,10 +52,15 @@ def exec_advanced_query(query_name):
 @app.route('/<table_slug>/<operation>', methods=['GET','POST'])
 def crud_handler(table_slug, operation): 
     #table_slug is for table, operation for CRUD
+    query_data = json.loads(request.data)
+    if not request.data["password"] or request.data["password"] != app.config["REQUEST_PASSWORD"]:
+        return Response('Incorrect password for request!', 401, {'WWW-Authenticate': 'Basic realm="Login!"'})
+
+    query_data.pop("password", None)  # Remove password from dict to let jank code work
+
     if operation == 'create':
         if table_slug == 'players':
             try:
-                query_data = json.loads(request.data)
                 player = Players(player_id=query_data['player_id'], player_name=query_data['player_name'])
                 db.session.add(player)
                 db.session.commit()
@@ -65,7 +70,6 @@ def crud_handler(table_slug, operation):
 
         if table_slug == 'stages':
             try:
-                query_data = json.loads(request.data)
                 stage = Stages(stage_id=query_data['stage_id'], stage_name=query_data['stage_name'])
                 db.session.add(stage)
                 db.session.commit()
@@ -76,7 +80,6 @@ def crud_handler(table_slug, operation):
 
         if table_slug == 'games':
             try:  
-                query_data = json.loads(request.data)
                 game = Games(
                     game_id=query_data['game_id'], 
                     winner_id=query_data['winner_id'], 
@@ -97,7 +100,6 @@ def crud_handler(table_slug, operation):
 
         if table_slug == 'sets':
             try:
-                query_data = json.loads(request.data)
                 sets = Sets(set_id=query_data['set_id'], set_winner_id=query_data['set_winner_id'], set_loser_id=query_data['set_loser_id'])
                 db.session.add(sets)
                 db.session.commit()
@@ -108,7 +110,6 @@ def crud_handler(table_slug, operation):
 
         if table_slug == 'characters':
             try:
-                query_data = json.loads(request.data)
                 character = Characters(char_id=query_data['char_id'], char_name=query_data['char_name'])
                 db.session.add(character)
                 db.session.commit()
@@ -119,7 +120,6 @@ def crud_handler(table_slug, operation):
         return make_response(jsonify(message='Invalid Table'), 500)
 
     elif operation == 'search':
-        query_data = json.loads(request.data)
         query_data = {k: v for k, v in query_data.items() if v is not None}
 
         class_map = {
@@ -141,7 +141,6 @@ def crud_handler(table_slug, operation):
 
     elif operation == 'update':
         if table_slug == 'players':
-            query_data = json.loads(request.data)
             try:
                 num_rows_updated = db.session.query(Players).filter_by(player_id=query_data['player_id']).update(dict(
                     player_name=query_data['player_name']
@@ -152,7 +151,6 @@ def crud_handler(table_slug, operation):
                 return make_response('Error updating player', 500)
 
         if table_slug == 'stages':
-            query_data = json.loads(request.data)
             try:
                 num_rows_updated = db.session.query(Stages).filter_by(stage_id=query_data['stage_id']).update(dict(
                     stage_name=query_data['stage_name']
@@ -163,7 +161,6 @@ def crud_handler(table_slug, operation):
                 return make_response('Error updating stage', 500)
 
         if table_slug == 'games':
-            query_data = json.loads(request.data)
             try:
                 num_rows_updated = db.session.query(Games).filter_by(game_id=query_data['game_id']).update(dict(
                     winner_id=query_data['winner_id'],
@@ -182,7 +179,6 @@ def crud_handler(table_slug, operation):
                 return make_response('Error updating game', 500)
 
         if table_slug == 'characters':
-            query_data = json.loads(request.data)
             try:
                 num_rows_updated = db.session.query(Characters).filter_by(char_id=query_data['char_id']).update(dict(char_name=query_data['char_name']))
                 
@@ -193,7 +189,6 @@ def crud_handler(table_slug, operation):
                 return make_response('Error updating character', 500)
 
         if table_slug == 'sets':
-            query_data = json.loads(request.data)
             try:
                 num_rows_updated = db.session.query(Sets).filter_by(set_id=query_data['set_id']).update(dict(
                     set_winner_id=query_data['set_winner_id'],
@@ -204,11 +199,8 @@ def crud_handler(table_slug, operation):
                 return make_response('Successfully updated set', 200)
             except:
                 return make_response('Error updating set', 500)
-        
-        
 
     elif operation == 'delete':
-        query_data = json.loads(request.data)
         query_data = {k: v for k, v in query_data.items() if v is not None}
 
         class_map = {
@@ -238,6 +230,9 @@ def crud_handler(table_slug, operation):
 def exec_stored_procedure():
     try:
         query_data = json.loads(request.data)
+        if not request.data["password"] or request.data["password"] != app.config["REQUEST_PASSWORD"]:
+            return Response('Incorrect password for request!', 401, {'WWW-Authenticate': 'Basic realm="Login!"'})
+
         results = db.engine.execute('getBestPlayerStats ?', [characterName])
         return make_response(jsonify({'result': [dict(row) for row in results]}), 200)
     except:

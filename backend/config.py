@@ -8,3 +8,4 @@ class Config:
     SQLALCHEMY_DATABASE_URI = environ.get("DATABASE_URI")
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    PASSWORD = environ.get("REQUEST_PASSWORD")
