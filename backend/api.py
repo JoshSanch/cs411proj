@@ -54,7 +54,7 @@ def crud_handler(table_slug, operation):
     #table_slug is for table, operation for CRUD
     query_data = json.loads(request.data)
     if not query_data["password"] or query_data["password"] != app.config["REQUEST_PASSWORD"]:
-        return Response('Incorrect password for request!', 401, {'WWW-Authenticate': 'Basic realm="Login!"'})
+        return Response('Incorrect password for request!', 401)
 
     query_data.pop("password", None)  # Remove password from dict to let jank code work
 
