@@ -228,14 +228,25 @@ def crud_handler(table_slug, operation):
     )
 
 
+
 @app.route('/stored_proc', methods=["GET","POST"])
 def exec_stored_procedure():
     try:
         query_data = json.loads(request.data)
-        if not request.data["password"] or request.data["password"] != app.config["REQUEST_PASSWORD"]:
-            return Response('Incorrect password for request!', 401, {'WWW-Authenticate': 'Basic realm="Login!"'})
+        # results = db.session.execute('CALL getBestPlayerStats(?)', [query_data['characterName']])
+        # .engine.raw_connection()
+        results = db.session.execute('call getBestPlayerStats ? ', (query_data['characterName']))
 
-        results = db.engine.execute('getBestPlayerStats ?', [characterName])
+        # parameterIn = query_data['characterName']
+        # parameterOut = "@parameterOut"
+        
+        # print("checkpoint 0")
+        # connection = db.engine.raw_connection()
+        # print("checkpoint 1")
+        # cursor = connection.cursor()
+        # cursor.callproc("getBestPlayerStats", [parameterIn])
+        # results = cursor.fetchall()
         return make_response(jsonify({'result': [dict(row) for row in results]}), 200)
-    except:
-        return make_response(jsonify(message='Error inserting player'), 500)
+    except Exception as ex:
+        print(repr(ex))
+        return make_response(jsonify(message='Error running stored procedure'), 500)

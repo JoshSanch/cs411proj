@@ -28,15 +28,15 @@ class BestInfo extends React.Component {
         };
 
         console.log(requestOptions);
-        // var newTableData;
-        // var responseCode;
-        // fetch('/whatever/', requestOptions)
-        //      .then(function(response){
-        //          responseCode = response.status
-        //          return response.json()
-        //      })
-        //     .then(data => newTableData = data)
-        //     .then(data => updateTable(newTableData, responseCode));
+        var newTableData;
+        var responseCode;
+        fetch('/stored_proc', requestOptions)
+             .then(function(response){
+                 responseCode = response.status
+                 return response.json()
+             })
+            .then(data => newTableData = data)
+            .then(data => this.updateTable(newTableData, responseCode));
 
         // waits for the API then sets the table as needed
         
@@ -51,17 +51,17 @@ class BestInfo extends React.Component {
             text: 'Best Stage (for this player)'
         }, {
             dataField: 'worst_matchup',
-            text: 'Worst matchup (for player)'
+            text: 'Worst matchup (for this player)'
         }
         ];
 
         if (responseCode === 401) {
-            var returnText = document.getElementById("p10")
+            var returnText = document.getElementById("p1")
             returnText.innerText = "Incorrect password";
             returnText.style.color = "red";
             return;
           } else if (responseCode !== 200) {
-            var returnText = document.getElementById("p10")
+            var returnText = document.getElementById("p1")
             returnText.innerText = "An unexpected error occurred";
             returnText.style.color = "red";
             return;
